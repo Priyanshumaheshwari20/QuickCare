@@ -1,0 +1,61 @@
+.myprescription {
+    min-height: 100vh;
+    background: #f4f8ff;
+    padding: 40px;
+}
+
+.myprescription h2 {
+    color: #2563eb;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.pdf-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #2563eb;
+    transition: 0.3s;
+}
+
+.pdf-card:hover {
+    transform: translateY(-5px);
+}
+
+.pdf-card h4 {
+    color: #1d4ed8;
+    margin-bottom: 15px;
+}
+
+.pdf-card p {
+    color: #475569;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.pdf-card button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.pdf-card button:hover {
+    background: #1d4ed8;
+}
+
+@media(max-width:700px) {
+    .myprescription {
+        padding: 20px;
+    }
+    .myprescription h2 {
+        font-size: 25px;
+    }
+}

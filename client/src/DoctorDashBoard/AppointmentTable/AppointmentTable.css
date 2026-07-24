@@ -1,0 +1,87 @@
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f8fc;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 30px;
+    margin-left: 270px;
+}
+
+
+/* Welcome */
+
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+}
+
+.welcome-section h2 {
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.welcome-section p {
+    margin-top: 8px;
+    color: #666;
+}
+
+
+/* Grid */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+/* Responsive */
+
+@media(max-width:992px) {
+    .dashboard-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .welcome-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
+@media(max-width:576px) {
+    .dashboard-content {
+        padding: 15px;
+    }
+    .welcome-section {
+        padding: 18px;
+    }
+    .welcome-section h2 {
+        font-size: 24px;
+    }
+}

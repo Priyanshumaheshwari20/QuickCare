@@ -1,0 +1,175 @@
+.footer {
+    background: #f8f8f8;
+    padding: 60px 70px;
+    margin-top: 60px;
+    min-height: 520px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+.footer-image img {
+    margin-left: 3rem;
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 100px
+}
+
+.footer-links h4 {
+    font-size: 20px;
+    color: #1c1c1c;
+    margin-bottom: 18px;
+    font-weight: 700;
+}
+
+.footer-links p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.footer-links p:hover {
+    color: grey;
+    transform: translateY(1px);
+}
+
+.footer a {
+    text-decoration: none;
+}
+
+.legal {
+    margin-top: 35px;
+}
+
+.footer hr {
+    margin: 45px 0 25px;
+    border: none;
+    border-top: 1px solid #d9d9d9;
+}
+
+.footer-bottom {
+    text-align: center;
+}
+
+.footer-bottom h5 {
+    color: #777;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+
+/* Responsive */
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+
+/* Laptop */
+
+@media (max-width: 1200px) {
+    .footer {
+        padding: 50px;
+    }
+    .footer-top {
+        gap: 3rem;
+    }
+    .footer-links {
+        gap: 70px;
+    }
+    .footer-image img {
+        width: 300px;
+        height: 300px;
+        margin-left: 0;
+    }
+}
+
+
+/* Tablet */
+
+@media (max-width: 992px) {
+    .footer {
+        padding: 40px 30px;
+    }
+    .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+    }
+    .footer-image img {
+        width: 260px;
+        height: 260px;
+        margin-left: 0;
+    }
+    .footer-links {
+        justify-content: center;
+        gap: 50px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 35px 20px;
+    }
+    .footer-links {
+        gap: 35px;
+    }
+    .footer-links h4 {
+        font-size: 18px;
+    }
+    .footer-links p {
+        font-size: 14px;
+    }
+    .footer-image img {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 576px) {
+    .footer {
+        padding: 30px 15px;
+    }
+    .footer-top {
+        gap: 30px;
+    }
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+    }
+    .footer-image img {
+        width: 180px;
+        height: 180px;
+    }
+    .footer-links p:hover {
+        transform: none;
+    }
+    .footer-bottom h5 {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.medical-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+}
+
+.medical-card {
+    width: 280px;
+    min-height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.medical-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.medical-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.medical-card .btn {
+    margin-top: auto;
+}

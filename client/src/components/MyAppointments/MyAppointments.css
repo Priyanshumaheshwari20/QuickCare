@@ -1,0 +1,20 @@
+.cancel-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background-color: #3586dc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}

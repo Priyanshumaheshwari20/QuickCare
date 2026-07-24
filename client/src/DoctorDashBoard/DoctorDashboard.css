@@ -1,0 +1,100 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+
+/* Main Content */
+
+.dashboard-main {
+    margin-left: 270px;
+    width: calc(100% - 270px);
+    padding: 30px;
+    min-height: 100vh;
+}
+
+
+/* Dashboard Sections */
+
+.dashboard-content {
+    width: 100%;
+}
+
+
+/* Common Card Style */
+
+.dashboard-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+/* Bottom Section */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+
+/* Table + Activity Area */
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+/* Loading */
+
+.dashboard-loading {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+
+/* Responsive */
+
+@media(max-width:1200px) {
+    .dashboard-main {
+        margin-left: 85px;
+        width: calc(100% - 85px);
+    }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:992px) {
+    .dashboard-main {
+        padding: 20px;
+    }
+}
+
+@media(max-width:600px) {
+    .dashboard-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+    .dashboard-container {
+        flex-direction: column;
+    }
+}

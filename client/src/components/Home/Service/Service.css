@@ -1,0 +1,84 @@
+.services {
+    padding: 80px 0;
+    background: #f8fbff;
+}
+
+.services h1 {
+    color: #0d6efd;
+    margin-bottom: 20px;
+}
+
+
+/* Card */
+
+.service-card {
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 18px 40px rgba(13, 110, 253, 0.25) !important;
+}
+
+.service-card .card-body {
+    padding: 30px 20px;
+}
+
+.service-card h1 {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.service-card h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.service-card p {
+    color: #6c757d;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* Responsive */
+
+@media (max-width: 992px) {
+    .services h1 {
+        font-size: 3rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .services {
+        padding: 60px 20px;
+    }
+    .services h1 {
+        font-size: 2.5rem !important;
+    }
+    .service-card h1 {
+        font-size: 45px;
+    }
+    .service-card h4 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .services h1 {
+        font-size: 2rem !important;
+    }
+    .service-card {
+        margin-bottom: 20px;
+    }
+    .service-card h1 {
+        font-size: 38px;
+    }
+    .service-card p {
+        font-size: 14px;
+    }
+}
