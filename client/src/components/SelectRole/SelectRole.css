@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.role-page {
+    min-height: 100vh;
+    background: #eef5ff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Navbar */
+
+.role-navbar {
+    height: 85px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, .08);
+}
+
+.logo h2 {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.logo p {
+    color: #777;
+    margin-top: 4px;
+}
+
+.back-home {
+    text-decoration: none;
+    color: #1e3a8a;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.back-home:hover {
+    color: #2563eb;
+}
+
+
+/* Main Card */
+
+.role-container {
+    width: 900px;
+    max-width: 95%;
+    background: white;
+    margin: 70px auto;
+    border-radius: 25px;
+    padding: 50px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+    text-align: center;
+}
+
+.role-icon {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    background: #dbeafe;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+
+.role-container h1 {
+    margin-top: 20px;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+
+/* Cards */
+
+.role-cards {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.role-card {
+    width: 330px;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 35px;
+    transition: .4s;
+    background: white;
+}
+
+.role-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, .15);
+}
+
+.role-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.role-card h2 {
+    margin-top: 20px;
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.doctor-heading {
+    color: #16a34a !important;
+}
+
+.role-card p {
+    margin: 20px 0;
+    color: #666;
+    line-height: 1.8;
+}
+
+
+/* Buttons */
+
+.patient-btn {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    background: #2563eb;
+    color: white;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.patient-btn:hover {
+    background: #1d4ed8;
+}
+
+.doctor-btn {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    background: #16a34a;
+    color: white;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.doctor-btn:hover {
+    background: #15803d;
+}
+
+
+/* Bottom */
+
+.secure {
+    margin-top: 45px;
+    color: #666;
+    font-size: 17px;
+}
+
+
+/* Responsive */
+
+@media(max-width:768px) {
+    .role-navbar {
+        padding: 20px;
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+    }
+    .role-container {
+        padding: 30px 20px;
+    }
+    .role-container h1 {
+        font-size: 35px;
+    }
+    .role-card {
+        width: 100%;
+    }
+    .role-card img {
+        width: 90px;
+        height: 90px;
+    }
+}

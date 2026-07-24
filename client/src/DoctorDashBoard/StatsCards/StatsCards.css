@@ -1,0 +1,110 @@
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+
+/* Card */
+
+.stat-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Left Content */
+
+.stat-content h3 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.stat-content p {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+/* Icon */
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+
+/* Different Cards */
+
+.patient-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.appointment-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.pending-icon {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.revenue-icon {
+    background: #fce7f3;
+    color: #db2777;
+}
+
+
+/* Growth Text */
+
+.stat-growth {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #16a34a;
+    font-weight: 600;
+}
+
+
+/* Responsive */
+
+@media(max-width:1200px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:600px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    .stat-card {
+        padding: 20px;
+    }
+    .stat-content h3 {
+        font-size: 25px;
+    }
+}

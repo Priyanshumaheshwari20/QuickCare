@@ -1,0 +1,71 @@
+.prescription-card {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    margin-top: 25px;
+}
+
+.prescription-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+.prescription-btn {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+    margin-bottom: 22px;
+}
+
+.prescription-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, .3);
+}
+
+.prescription-item {
+    background: #f8fbff;
+    border-left: 5px solid #2563eb;
+    padding: 18px 20px;
+    border-radius: 15px;
+    margin-bottom: 18px;
+    transition: .3s;
+}
+
+.prescription-item:hover {
+    background: #eef5ff;
+    transform: translateX(5px);
+}
+
+.prescription-item p {
+    margin: 8px 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #374151;
+}
+
+.prescription-item p:first-child {
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.prescription-item p:last-child {
+    color: #6b7280;
+}
+
+@media(max-width:768px) {
+    .prescription-card {
+        padding: 18px;
+    }
+    .prescription-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.booking-section {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 30px;
+}
+
+.booking-box {
+    width: 90%;
+    max-width: 1050px;
+    border-radius: 22px;
+    padding: 70px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, .15);
+}
+
+.booking-heading {
+    font-size: 58px;
+    font-weight: 800;
+    margin-bottom: 60px;
+    color: #222;
+    letter-spacing: 0.25rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.booking-heading span {
+    color: #659cf4;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.booking-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    align-items: center;
+}
+
+.booking-image {
+    flex: 1;
+}
+
+.booking-image img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.booking-steps {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    transition: .3s;
+}
+
+.step:hover {
+    transform: translateX(10px);
+}
+
+.icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #edf5ff;
+    color: #2d7eff;
+    border-radius: 10px;
+    font-size: 22px;
+    transition: .3s;
+}
+
+.active {
+    background: #2d7eff;
+    color: white;
+}
+
+.step:hover .icon {
+    background: #2d7eff;
+    color: white;
+}
+
+.step h3 {
+    font-size: 32px;
+    color: #222;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.step p {
+    font-size: 18px;
+    color: #777;
+    line-height: 1.6;
+}
+
+@media(max-width:991px) {
+    .booking-content {
+        flex-direction: column;
+    }
+    .booking-heading {
+        text-align: center;
+        font-size: 45px;
+    }
+    .booking-box {
+        padding: 40px;
+    }
+}
+
+@media(max-width:576px) {
+    .booking-heading {
+        font-size: 35px;
+    }
+    .step h3 {
+        font-size: 24px;
+    }
+    .step p {
+        font-size: 15px;
+    }
+    .booking-box {
+        padding: 25px;
+    }
+}

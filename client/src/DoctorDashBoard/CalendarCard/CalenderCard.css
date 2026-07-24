@@ -1,0 +1,74 @@
+.calendar-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2563eb;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.calendar-date {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.calendar-date h2 {
+    color: #1e3a8a;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.calendar-date p {
+    color: #777;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fbff;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.schedule-item h6 {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.schedule-item span {
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+@media(max-width:768px) {
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

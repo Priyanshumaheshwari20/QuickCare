@@ -1,0 +1,55 @@
+.patient-header {
+    background: #fff;
+    padding: 28px 35px;
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 10;
+}
+
+.patient-header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 0;
+}
+
+.patient-header span {
+    color: #2563eb;
+}
+
+.patient-header button {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: relative;
+    z-index: 11;
+    pointer-events: auto;
+}
+
+.patient-header button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, .35);
+}
+
+.patient-header button:active {
+    transform: scale(0.97);
+}
+
+@media (max-width:768px) {
+    .patient-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
