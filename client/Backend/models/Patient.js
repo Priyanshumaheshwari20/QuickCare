@@ -16,18 +16,43 @@ const patientSchema = new mongoose.Schema({
         required: true,
     },
 
+    bloodGroup: {
+        type: String,
+        required: true,
+    },
+
     email: {
         type: String,
         required: true,
-        unique: true,
     },
 
     phoneNumber: {
         type: String,
         required: true,
+        unique: true,
     },
 
-    place: {
+    emergencyContact: {
+        type: String,
+        required: true,
+    },
+
+    state: {
+        type: String,
+        required: true,
+    },
+
+    city: {
+        type: String,
+        required: true,
+    },
+
+    address: {
+        type: String,
+        required: true,
+    },
+
+    pinCode: {
         type: String,
         required: true,
     },

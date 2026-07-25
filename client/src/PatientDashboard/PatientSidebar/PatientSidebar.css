@@ -1,0 +1,130 @@
+.patient-sidebar {
+    width: 270px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #2563eb;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, .12);
+    z-index: 999;
+}
+
+.patient-logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.patient-logo h2 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.patient-logo p {
+    opacity: .8;
+}
+
+.patient-profile {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.patient-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: white;
+    color: #2563eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.patient-profile h4 {
+    margin-bottom: 5px;
+}
+
+.patient-profile span {
+    font-size: 14px;
+    opacity: .8;
+}
+
+.patient-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.patient-sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.patient-sidebar ul li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: .3s;
+}
+
+.patient-sidebar ul li a:hover {
+    background: white;
+    color: #2563eb;
+}
+
+.patient-sidebar ul li.active a {
+    background: white;
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.logout {
+    background: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: .3s;
+}
+
+.logout:hover {
+    background: #dbeafe;
+}
+
+@media(max-width:992px) {
+    .patient-sidebar {
+        width: 90px;
+        padding: 20px 10px;
+    }
+    .patient-logo p,
+    .patient-profile h4,
+    .patient-profile span,
+    .patient-sidebar ul li span {
+        display: none;
+    }
+    .patient-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+    .patient-sidebar ul li a {
+        justify-content: center;
+    }
+}

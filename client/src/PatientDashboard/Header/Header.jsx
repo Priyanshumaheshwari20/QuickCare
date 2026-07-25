@@ -1,23 +1,94 @@
-import React from "react";
-import "./Header.css";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaArrowLeft, FaBell } from "react-icons/fa";
+import "./Header.css";
+import axios from "axios";
+function Header() {
 
-function Header(){
-const navigate = useNavigate()
-const name = localStorage.getItem("patientName");
-return(
-<div className="patient-header">
+  const navigate = useNavigate();
 
-
-<h2>
-Welcome, <span>{name}</span>
-</h2>
-
-
-<button  style={{padding:"10px"   , color:"white" , background:"black" ,  border :"2px solid black", borderRadius:"30px"}} onClick={() => navigate("/")}  > Back to Home</button>
+  const [patient, setPatient] = useState(
+  localStorage.getItem("patientName") || ""
+);
 
 
-</div>
-)
+useEffect(() => {
+
+const updateName = () => {
+
+setPatient(
+localStorage.getItem("patientName") || ""
+);
+
+};
+
+
+window.addEventListener(
+"patientUpdated",
+updateName
+);
+
+
+return () => {
+
+window.removeEventListener(
+"patientUpdated",
+updateName
+);
+
+};
+
+
+}, []);
+
+
+
+
+  const today = new Date().toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  return (
+
+    <div className="patient-header">
+
+      <div>
+
+        <p className="welcome-text">
+          Welcome Back 👋
+        </p>
+
+        <h2>{patient}</h2>
+
+        <span className="today-date">
+          {today}
+        </span>
+
+      </div>
+
+      <div className="header-right">
+
+        <div className="notification">
+          <FaBell />
+        </div>
+
+        <button
+          className="home-btn"
+          onClick={() => navigate("/")}
+        >
+          <FaArrowLeft />
+          Back To Home
+        </button>
+
+      </div>
+
+    </div>
+
+  );
+
 }
+
 export default Header;

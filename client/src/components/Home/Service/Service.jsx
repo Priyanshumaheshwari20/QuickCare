@@ -46,7 +46,7 @@ function Services() {
 
             <div className="col-md-4">
               <div className="service-card card h-100 shadow border-0 rounded-4 p-3">
-                <div  onClick={()=> navigate("/DoctorList")}className="card-body text-center">
+                <div  onClick={()=> navigate("/MyAppointments")}className="card-body text-center">
                   <h1>📅</h1>
                   <h4  >Appointment Booking</h4>
                   <p>Book appointments with experienced doctors in seconds.</p>
@@ -74,7 +74,7 @@ function Services() {
               </div>
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-4"  onClick={()=> navigate("/MyPrescription")}>
               <div className="service-card card h-100 shadow border-0 rounded-4 p-3">
                 <div className="card-body text-center">
                   <h1>📄</h1>

@@ -118,8 +118,7 @@ console.log("Patient:", appointment.patientId);
               toast.success("PDF Uploaded Successfully");
 
         console.log(response.data);
-setReportId(response.data.document._id);
-
+        setReportId(response.data.document._id);
     }
 
 
@@ -861,7 +860,7 @@ console.log(error);
 
                         <h3>
 
-                            Doctor Advice
+                            Doctor Advice/Instruction
 
                         </h3>
 

@@ -1,15 +1,15 @@
 import Prescription from "../models/Prescription.js";
-
+import Document from "../models/Document.js";
 // Create Prescription
 
 
 export const createPrescription = async(req, res) => {
+    console.log("===== Prescription API Hit =====");
+    console.log(req.body);
 
     try {
-        console.log("Prescription API Hit");
-        console.log(req.body);
-        const {
 
+        const {
             appointmentId,
             doctorId,
             patientId,
@@ -18,11 +18,24 @@ export const createPrescription = async(req, res) => {
             medicines,
             advice,
             report
-
         } = req.body;
 
-        const prescription = await Prescription.create({
+        console.log("Report ID:", report);
 
+        const document = await Document.findById(report);
+
+        console.log("Document:", document);
+        let pdfPath = "";
+
+        if (report) {
+            const document = await Document.findById(report);
+
+            if (document) {
+                pdfPath = document.filePath.replace(/\\/g, "/");
+            }
+        }
+
+        const prescription = await Prescription.create({
             appointmentId,
             doctorId,
             patientId,
@@ -30,31 +43,25 @@ export const createPrescription = async(req, res) => {
             diagnosis,
             medicines,
             advice,
-            report
-
+            report,
+            pdf: pdfPath
         });
 
         res.status(201).json({
-
             success: true,
             message: "Prescription Saved Successfully",
             prescription
-
         });
 
     } catch (error) {
 
         res.status(500).json({
-
             success: false,
             message: error.message
-
         });
 
     }
-
 };
-
 
 // Get Prescription By Appointment
 

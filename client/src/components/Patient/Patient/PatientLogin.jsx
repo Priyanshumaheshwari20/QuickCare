@@ -34,17 +34,14 @@ function PatientLogin({ changeRole }) {
 
     try {
 
-      const response = await axios.post(
-        "http://localhost:5000/api/patients/login",
-        formData
-      );
-
+    const response = await axios.post(
+  "http://localhost:5000/api/patients/login",
+  formData
+);
 
       console.log(response.data);
 
 
-
-      // Save patient details
 
       localStorage.setItem(
         "patientId",
@@ -53,36 +50,57 @@ function PatientLogin({ changeRole }) {
 
 
       localStorage.setItem(
-  "patientName",
-  response.data.patient.name
-);
+        "patientName",
+        response.data.patient.name
+      );
 
 
-localStorage.setItem(
-  "role",
-  "patient"
-);
+      localStorage.setItem(
+        "role",
+        "patient"
+      );
 
-Swal.fire({
-  icon: "success",
-  title: "Login Successful",
-  text: "Welcome!",
-  timer: 2000,
-  showConfirmButton: false,
-}).then(() => {
-  navigate("/");
-});
 
-    } catch (error) {
+
+      Swal.fire({
+
+        icon: "success",
+
+        title: "Login Successful",
+
+        text: `Welcome ${response.data.patient.name}`,
+
+        timer: 2000,
+
+        showConfirmButton:false
+
+      }).then(()=>{
+
+        navigate("/");
+
+      });
+
+
+
+    } catch(error){
+
 
       console.log(error);
-Swal.fire({
-  icon: "error",
-  title: "Login Failed",
-  text:
-    error.response?.data?.message ||
-    "Invalid Email or Password",
-});
+
+
+      Swal.fire({
+
+        icon:"error",
+
+        title:"Login Failed",
+
+        text:
+        error.response?.data?.message ||
+        "Invalid Email"
+
+      });
+
+
     }
 
   };
@@ -90,138 +108,171 @@ Swal.fire({
 
 
 
-  return (
 
-    <>
+return (
 
-
-
-      <div className="container mt-5">
-
-        <div className="row justify-content-center">
-         <div className="col-md-5">
-      <div className="card shadow p-4">
+<>
 
 
-              <h2 className="text-center mb-4"  >
-                Patient Login
-              </h2>
+<div className="container mt-5">
 
 
-
-              <form onSubmit={handleSubmit}>
-
-
-                {/* Email */}
-
-                <div className="mb-3">
-
-                  <label className="form-label">
-                    Email
-                  </label>
+<div className="row justify-content-center">
 
 
-                  <input
+<div className="col-md-5">
 
-                    type="email"
 
-                    className="form-control"
+<div className="card shadow p-4">
 
-                    placeholder="Enter Email"
 
-                    name="email"
-
-                    value={formData.email}
-
-                    onChange={handleChange}
-
-                    required
-
-                  />
-
-                </div>
+<h2 className="text-center mb-4">
+Patient Login
+</h2>
 
 
 
+<form onSubmit={handleSubmit}>
 
 
-                {/* Password */}
+{/* Email */}
 
-                <div className="mb-3">
-
-                  <label className="form-label">
-                    Password
-                  </label>
+<div className="mb-3">
 
 
-                  <input
+<label className="form-label">
+Email
+</label>
 
-                    type="password"
 
-                    className="form-control"
+<input
 
-                    placeholder="Enter Password"
+type="email"
 
-                    name="password"
+className="form-control"
 
-                    value={formData.password}
+placeholder="Enter Email"
 
-                    onChange={handleChange}
+name="email"
 
-                    required
+value={formData.email}
 
-                  />
+onChange={handleChange}
 
-                </div>
+required
+
+/>
+
+
+</div>
 
 
 
 
 
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100"
-                >
+{/* Password UI only */}
 
-                  Login
+<div className="mb-3">
 
-                </button>
+
+<label className="form-label">
+Password
+</label>
+
+
+<input
+
+type="password"
+
+className="form-control"
+
+placeholder="Enter Password"
+
+name="password"
+
+value={formData.password}
+
+onChange={handleChange}
+
+/>
+
+
+</div>
+
+
+
+
+
+<button
+
+type="submit"
+
+className="btn btn-primary w-100"
+
+>
+
+Login
+
+</button>
+
+
+
+
 
 <p className="text-center mt-3">
-  Doctor Login?{" "}
-  <span
-    onClick={changeRole}
-    style={{
-      color: "blue",
-      cursor: "pointer",
-      textDecoration: "underline",
-      fontWeight: "600",
-    }}
-  >
-    Click here
-  </span>
+
+Doctor Login?{" "}
+
+<span
+
+onClick={changeRole}
+
+style={{
+
+color:"blue",
+
+cursor:"pointer",
+
+textDecoration:"underline",
+
+fontWeight:"600"
+
+}}
+
+>
+
+Click here
+
+</span>
+
+
 </p>
 
-              </form>
 
 
-            </div>
+</form>
 
 
-          </div>
+
+</div>
 
 
-        </div>
+</div>
 
 
-      </div>
+</div>
 
 
-    </>
+</div>
 
-  );
+
+
+</>
+
+);
+
 
 }
 
 
-export default PatientLogin;  
+export default PatientLogin;

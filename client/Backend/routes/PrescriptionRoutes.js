@@ -5,7 +5,7 @@ import {
     getPrescription,
     updatePrescription,
     deletePrescription,
-    getPatientPrescriptions
+    getPatientPrescriptions,
 } from "../controllers/PrescriptionControllers.js";
 
 const router = express.Router();

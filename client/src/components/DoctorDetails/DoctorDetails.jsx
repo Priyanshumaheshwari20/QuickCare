@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./DoctorDetails.css";
-import { useNavigate } from "react-router-dom";
 
 function DoctorDetails() {
   const { id } = useParams();
-const navigate =useNavigate()
+  const navigate = useNavigate();
+
   const timeSlots = [
     "10:00 AM",
     "12:30 PM",
@@ -23,10 +24,11 @@ const navigate =useNavigate()
   const [days, setDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const patientId = localStorage.getItem("patientId");
 
-const role = localStorage.getItem("role");
-  // Generate Next 7 Days
+  const patientId = localStorage.getItem("patientId");
+  const role = localStorage.getItem("role");
+
+  // Next 7 Days
   useEffect(() => {
     const nextDays = [];
 
@@ -66,45 +68,65 @@ const role = localStorage.getItem("role");
     getDoctorDetails();
   }, [id]);
 
-  // Appointment Validation
+  // Available Slots
+  const availableSlots = timeSlots.filter((time) => {
+  const today = new Date();
+
+  // Agar date select nahi ki hai to aaj ki date maan lo
+  const selectedDate = selectedDay
+    ? selectedDay.date
+    : today.getDate();
+
+  const isToday = selectedDate === today.getDate();
+
+  if (!isToday) return true;
+
+  const slotTime = new Date();
+
+  const [timePart, modifier] = time.split(" ");
+  let [hours, minutes] = timePart.split(":").map(Number);
+
+  if (modifier === "PM" && hours !== 12) hours += 12;
+  if (modifier === "AM" && hours === 12) hours = 0;
+
+  slotTime.setHours(hours, minutes, 0, 0);
+
+  return slotTime > today;
+});
+
+  // Book Appointment
   const handleAppointment = async () => {
+    if (!patientId || role !== "patient") {
+      toast.warning("To book an appointment, please login or create a Patient account.");
+      return;
+    }
 
+    if (!selectedDay) {
+      toast.warning("📅 Please select Date");
+      return;
+    }
 
-  if(!patientId || role !== "patient"){
- alert("⚠️ Only Patient can book appointment");
- return; }
-if(!selectedDay){
-  alert("📅 Please select Date");
- return;}
+    if (!selectedTime) {
+      toast.warning("🕒 Please select Time");
+      return;
+    }
 
-
-  if(!selectedTime){
-alert("🕒 Please select Time");
-return;
-}
- try{
- await axios.post(  "http://localhost:5000/api/appointments",
-      {
+    try {
+      await axios.post("http://localhost:5000/api/appointments", {
         patientId,
         doctorId: doctor._id,
         day: selectedDay.day,
         date: selectedDay.date,
-        time: selectedTime
-      }
-    );
-alert("✅ Appointment Booked Successfully");
+        time: selectedTime,
+      });
 
-navigate("/myappointments")
-  }
-  catch(error){
-
-    console.log(error);
-
-    alert("Booking Failed");
-
-  }
-
-};
+      toast.success("✅ Appointment Booked Successfully");
+      navigate("/myappointments");
+    } catch (error) {
+      console.log(error);
+      alert("Booking Failed");
+    }
+  };
 
   if (!doctor) {
     return <h2 className="text-center mt-5">Loading...</h2>;
@@ -115,25 +137,15 @@ navigate("/myappointments")
       <Navbar />
 
       <div className="container doctor-details-section">
-
         <div className="doctor-container">
-
-          {/* Left Side */}
-
           <div className="col-md-2">
-
             <div className="image-box">
               <h4>Doctor Image</h4>
             </div>
-
           </div>
 
-          {/* Right Side */}
-
           <div className="col-md-8">
-
             <div className="details-box">
-
               <h1>{doctor.name}</h1>
 
               <div className="doctor-info">
@@ -142,17 +154,15 @@ navigate("/myappointments")
               </div>
 
               <h4>About</h4>
-
               <p>{doctor.about}</p>
 
               <h4>
                 Appointment Fee :
-                <span  style={{color:"blue"}}> ₹{doctor.consultationFee}</span>
+                <span style={{ color: "blue" }}>
+                  ₹{doctor.consultationFee}
+                </span>
               </h4>
-
             </div>
-
-            {/* Booking Slots */}
 
             <h4 style={{ marginTop: "30px", marginBottom: "20px" }}>
               Booking Slots
@@ -168,13 +178,13 @@ navigate("/myappointments")
               {days.map((item, index) => (
                 <div
                   key={index}
-                onClick={() => {
-  if (selectedDay?.date === item.date) {
-    setSelectedDay(null);   // reset
-  } else {
-    setSelectedDay(item);   // select
-  }
-}}
+                  onClick={() => {
+                    if (selectedDay?.date === item.date) {
+                      setSelectedDay(null);
+                    } else {
+                      setSelectedDay(item);
+                    }
+                  }}
                   style={{
                     width: "90px",
                     height: "90px",
@@ -196,17 +206,13 @@ navigate("/myappointments")
                       selectedDay?.date === item.date
                         ? "#fff"
                         : "#000",
-                    transition: "0.3s",
                   }}
                 >
                   <span>{item.day}</span>
-
                   <h4 style={{ margin: 0 }}>{item.date}</h4>
                 </div>
               ))}
             </div>
-
-            {/* Time */}
 
             <h4 style={{ marginTop: "40px", marginBottom: "20px" }}>
               Available Time
@@ -219,41 +225,45 @@ navigate("/myappointments")
                 flexWrap: "wrap",
               }}
             >
-              {timeSlots.map((time, index) => (
-                <div
-                  key={index}
-                onClick={() => {
-  if (selectedTime === time) {
-    setSelectedTime("");   // reset
-  } else {
-    setSelectedTime(time); // select
-  }
-}}
-                  style={{
-                    padding: "10px 18px",
-                    border:
-                      selectedTime === time
-                        ? "2px solid #0d6efd"
-                        : "2px solid #ccc",
-                    background:
-                      selectedTime === time
-                        ? "#0d6efd"
-                        : "#fff",
-                    color:
-                      selectedTime === time
-                        ? "#fff"
-                        : "#000",
-                    borderRadius: "30px",
-                    cursor: "pointer",
-                    fontWeight: "600",
-                  }}
-                >
-                  {time}
-                </div>
-              ))}
+              {availableSlots.length === 0 ? (
+                <p style={{ color: "red", fontWeight: "600" }}>
+                  No slots available for today.
+                </p>
+              ) : (
+                availableSlots.map((time, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      if (selectedTime === time) {
+                        setSelectedTime("");
+                      } else {
+                        setSelectedTime(time);
+                      }
+                    }}
+                    style={{
+                      padding: "10px 18px",
+                      border:
+                        selectedTime === time
+                          ? "2px solid #0d6efd"
+                          : "2px solid #ccc",
+                      background:
+                        selectedTime === time
+                          ? "#0d6efd"
+                          : "#fff",
+                      color:
+                        selectedTime === time
+                          ? "#fff"
+                          : "#000",
+                      borderRadius: "30px",
+                      cursor: "pointer",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {time}
+                  </div>
+                ))
+              )}
             </div>
-
-            {/* Button */}
 
             <button
               className="btn btn-primary mt-4"
@@ -261,11 +271,8 @@ navigate("/myappointments")
             >
               Book Appointment
             </button>
-
           </div>
-
         </div>
-
       </div>
 
       <Footer />
