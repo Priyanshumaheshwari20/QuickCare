@@ -63,3 +63,68 @@ The backend is developed using **Node.js**, **Express.js**, and **MongoDB**. It 
 - Modular MVC architecture (Models, Routes, Controllers)
 
 The backend ensures secure data management, efficient API responses, and reliable communication between users and the healthcare platform.
+
+
+# 🚀 How to Run the Project
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/Priyanshumaheshwari20/QuickCare.git
+```
+
+## 2️⃣ Navigate to the Project Folder
+
+```bash
+cd QuickCare
+cd client
+```
+
+---
+
+## 3️⃣ Start the Backend Server
+
+Open a new terminal:
+
+```bash
+cd client
+cd Backend
+npm install
+npm start
+```
+
+The backend server will start on:
+
+```
+http://localhost:5000
+```
+
+---
+
+## 4️⃣ Start the Frontend
+
+Open another terminal:
+
+```bash
+cd client
+npm install
+npm start
+```
+
+The frontend will start on:
+
+```
+http://localhost:3000
+```
+
+---
+
+## 5️⃣ Open the Application
+
+Visit:
+
+```
+http://localhost:3000
+```
+
+Make sure MongoDB is running and the required `.env` file is configured before starting the backend.
