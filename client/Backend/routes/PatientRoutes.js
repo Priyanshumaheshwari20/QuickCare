@@ -3,6 +3,7 @@ import {
     patientSignup,
     patientLogin,
     getPatientProfile,
+    updatePatientProfile,
 } from "../controllers/PatientControllers.js";
 const router = express.Router();
 
@@ -15,4 +16,5 @@ router.post("/signup", patientSignup);
 router.post("/login", patientLogin);
 //MYPROFILE
 router.get("/:id", getPatientProfile);
+router.put("/:id", updatePatientProfile);
 export default router;

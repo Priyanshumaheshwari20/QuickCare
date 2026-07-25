@@ -1,0 +1,49 @@
+.title {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: 700;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin: 0;
+}
+
+.find-By-Speciality {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.speciality {
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.speciality img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eef5ff;
+    padding: 10px;
+}
+
+.speciality h5 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.speciality:hover {
+    transform: translateY(-8px);
+}
+
+.more {
+    text-align: center;
+    margin-top: 35px;
+}

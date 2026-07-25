@@ -1,126 +1,182 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ProfileCard.css";
 
 
-function ProfileCard(){
+function ProfileCard() {
 
-const [patient,setPatient] = useState({});
-
-
-useEffect(()=>{
+  const [patient, setPatient] = useState({});
 
 
-const getPatient = async()=>{
+  useEffect(() => {
 
-try{
+    const getPatient = async () => {
 
-const id = localStorage.getItem("patientId");
+      try {
 
+        const id = localStorage.getItem("patientId");
 
-const res = await axios.get(
-`http://localhost:5000/api/patients/${id}`
-);
-
-
-setPatient(res.data.patient);
+        const res = await axios.get(
+          `http://localhost:5000/api/patients/${id}`
+        );
 
 
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
+        setPatient(res.data.patient);
 
 
-getPatient();
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
 
 
-},[]);
+    getPatient();
+
+
+  }, []);
 
 
 
-return(
+  return (
 
-<div className="profile-card">
-
-
-<div className="profile-top">
-
-<div className="avatar">
-
-👤
-
-</div>
-
-<h3>
-
-Patient Profile
-
-</h3>
-
-</div>
-
-<div className="profile-info">
+    <div className="profile-card">
 
 
-<p>
-Name :
-<span>
- {patient.name}
-</span>
-</p>
+      <div className="profile-top">
+
+        <div className="avatar">
+          👤
+        </div>
 
 
-<p>
-Age :
-<span>
- {patient.age}
-</span>
-</p>
+        <div>
+          <h3>
+            {patient.name || "Patient Profile"}
+          </h3>
+
+          <p>
+            Healthcare Member
+          </p>
+        </div>
 
 
-<p>
-Gender :
-<span>
- {patient.gender}
-</span>
-</p>
+      </div>
 
 
-<p>
-Phone :
-<span>
- {patient.phoneNumber}
-</span>
-</p>
 
 
-<p>
-Email :
-<span>
- {patient.email}
-</span>
-</p>
+      <div className="profile-info">
 
 
-<p>
-Place :
-<span>
- {patient.place}
-</span>
-</p>
+        <p>
+          Name :
+          <span>
+            {patient.name}
+          </span>
+        </p>
 
 
-</div>
+
+        <p>
+          Age :
+          <span>
+            {patient.age} Years
+          </span>
+        </p>
 
 
-</div>
 
-)
+        <p>
+          Gender :
+          <span>
+            {patient.gender}
+          </span>
+        </p>
+
+
+
+        <p>
+          Blood Group :
+          <span>
+            {patient.bloodGroup}
+          </span>
+        </p>
+
+
+
+        <p>
+          Phone :
+          <span>
+            {patient.phoneNumber}
+          </span>
+        </p>
+
+
+
+        <p>
+          Email :
+          <span>
+            {patient.email}
+          </span>
+        </p>
+
+
+
+        <p>
+          Emergency Contact :
+          <span>
+            {patient.emergencyContact}
+          </span>
+        </p>
+
+
+
+        <p>
+          State :
+          <span>
+            {patient.state}
+          </span>
+        </p>
+
+
+
+        <p>
+          City :
+          <span>
+            {patient.city}
+          </span>
+        </p>
+
+
+
+        <p>
+          Address :
+          <span>
+            {patient.address}
+          </span>
+        </p>
+
+
+
+        <p>
+          PIN Code :
+          <span>
+            {patient.pinCode}
+          </span>
+        </p>
+
+
+
+      </div>
+
+
+
+    </div>
+
+  );
 
 
 }

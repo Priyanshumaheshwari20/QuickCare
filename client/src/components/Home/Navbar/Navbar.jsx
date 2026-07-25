@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css"
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 function Navbar() {
+  const navigate = useNavigate()
 const [patientName, setPatientName] = useState("");
 const[doctorName , setDoctorName]=useState("");
 const [role,setRole] = useState("");
@@ -18,40 +20,35 @@ const updateUser = () => {
     setRole(userRole || "");
 
 };
-
-
-  updateUser();
-
-
-  window.addEventListener(
+updateUser();
+window.addEventListener(
     "storage",
     updateUser
   );
 
-
-  return () => {
+return () => {
     window.removeEventListener(
       "storage",
       updateUser
     );
-  };
-
-
+};
 }, []);
 
 const isLoggedIn =
   role === "doctor"
     ? !!doctorName
     : !!patientName;
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
       <div className="container">
 
         {/* Logo */}
-        <Link className="navbar-brand d-flex align-items-center" to="/">
+        <div className="navbar-brand d-flex align-items-center"  style={{ cursor: "pointer" }} onClick ={()=>navigate("/")}>
           <span className="fs-3 me-2">🩺</span>
           <h3 className="mb-0 fw-bold text-primary">QuickCare</h3>
-        </Link>
+        </div>
 
         {/* Mobile Button */}
         <button  className="navbar-toggler" type="button"
@@ -67,27 +64,23 @@ const isLoggedIn =
           {/* Links */}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0  gap-lg-4"  >
 
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/">
+            
+              <div className="nav-link fw-semibold" style={{cursor:"pointer"}} onClick ={()=>navigate("/")}>
                 Home
-              </Link>
-            </li>
+              </div>
+            
 
-                
-           
 
- <Link to="/DoctorList">
-              <button className="btn btn-outline-primary">
+              <div className="nav-link fw-semibold" style={{cursor:"pointer"}} onClick={() => navigate("/DoctorList")}>
                 Doctor
-              </button>
-            </Link>
+              </div>
+                
+
+<div className="nav-link fw-semibold" style={{cursor:"pointer"}} onClick={()=>navigate("/About")}>
+                About
+              </div>
 
 
-<Link to="/About">
-              <button className="btn btn-outline-primary">
-              About
-              </button>
-            </Link>
 
            
 
@@ -151,6 +144,15 @@ const isLoggedIn =
           )
         }
 
+
+        {role === "patient" && (
+  <li>
+    <Link className="dropdown-item" to="/favourites">
+      ❤️ Favourite Doctors
+    </Link>
+  </li>
+)}
+
         <li><hr className="dropdown-divider" /></li>
 
         <li>
@@ -178,7 +180,7 @@ const isLoggedIn =
   ) : (
 
     <Link to="/SelectRole">
-      <button className="btn btn-primary">
+      <button className="btn btn-primary"  >
         Register
       </button>
     </Link>

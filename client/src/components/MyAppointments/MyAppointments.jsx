@@ -3,7 +3,7 @@ import axios from "axios";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "../MyAppointments/MyAppointments.css"
-
+import { toast } from "react-toastify";
 
 function MyAppointments() {
 
@@ -33,7 +33,7 @@ useEffect(() => {
       `http://localhost:5000/api/appointments/${id}`
     );
 
-    alert("Appointment Cancelled");
+    toast.warning("Appointment Cancelled");
 
     // List refresh
     fetchAppointments();
@@ -96,16 +96,20 @@ useEffect(() => {
                 </p>
 
 
-<div className="cancel-btn-container">
-    <button     onClick={() => cancelAppointment(item._id)}
-className="cancel-btn">
+
+     </div>
+      
+      
+<div >
+    <button     onClick={() => cancelAppointment(item._id)} className="cancel-btn">
       Cancel Appointment
     </button>
   </div>
-              </div>
+         
                
          
             </div>
+            
           ))
         )}
       </div>

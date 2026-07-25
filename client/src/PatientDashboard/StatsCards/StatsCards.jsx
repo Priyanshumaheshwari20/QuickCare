@@ -1,96 +1,112 @@
-import React,{useEffect,useState} from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {
+  FaCalendarCheck,
+  FaClock,
+  FaCheckCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 import "./StatsCards.css";
 
-function StatsCards(){
+function StatsCards() {
+const navigate = useNavigate()
+  const [stats, setStats] = useState({
+    total: 0,
+    pending: 0,
+    completed: 0,
+    cancelled: 0,
+  });
 
-const [appointments,setAppointments]=useState([]);
-const navigate =useNavigate()
-useEffect(()=>{
+  useEffect(() => {
+    const fetchData = async () => {
 
-const fetchData=async()=>{
+      try {
 
-const patientId=localStorage.getItem("patientId");
+        const patientId = localStorage.getItem("patientId");
 
-const res=await axios.get(
-`http://localhost:5000/api/appointments/patient/${patientId}`
-);
+        const res = await axios.get(
+          `http://localhost:5000/api/appointments/patient/${patientId}`
+        );
 
-setAppointments(res.data.appointments);
+        const appointments = res.data.appointments;
 
-}
+        setStats({
+          total: appointments.length,
+          pending: appointments.filter(a => a.status === "Pending").length,
+          completed: appointments.filter(a => a.status === "Completed").length,
+          cancelled: appointments.filter(a => a.status === "Cancelled").length,
+        });
 
-fetchData();
+      } catch (err) {
+        console.log(err);
+      }
 
-},[]);
+    };
 
-const total=appointments.length;
+    fetchData();
 
-const upcoming=
-appointments.filter(item=>item.status==="Pending").length;
+  }, []);
 
-const completed=
-appointments.filter(item=>item.status==="Completed").length;
+  return (
 
-const cancelled=
-appointments.filter(item=>item.status==="Cancelled").length;
+    <div className="stats-container">
 
-return(
-<>
-<div className="stats-container">
+      <div className="stats-card blue">
 
-<div className="stat-card">
+        <div className="stats-icon">
+          <FaCalendarCheck />
+        </div>
 
-<div className="stat-icon">
-📅
-</div>
+        <div  onClick = {() => navigate("/myappointments")}>
+          <h2>{stats.total}</h2>
+          <p>Total Appointments</p>
+        </div>
 
-<h2>{total}</h2>
+      </div>
 
-<p>Total Appointments</p>
+      <div className="stats-card orange">
 
-</div>
+        <div className="stats-icon">
+          <FaClock />
+        </div>
 
-<div className="stat-card">
+        <div>
+          <h2>{stats.pending}</h2>
+          <p>Pending</p>
+        </div>
 
-<div className="stat-icon">
-⏳
-</div>
+      </div>
 
-<h2>{upcoming}</h2>
+      <div className="stats-card green">
 
-<p>Pending</p>
+        <div className="stats-icon">
+          <FaCheckCircle />
+        </div>
 
-</div>
+        <div>
+          <h2>{stats.completed}</h2>
+          <p>Completed</p>
+        </div>
 
-<div className="stat-card">
+      </div>
 
-<div className="stat-icon">
-✅
-</div>
+      <div className="stats-card red">
 
-<h2>{completed}</h2>
+        <div className="stats-icon">
+          <FaTimesCircle />
+        </div>
 
-<p>Completed</p>
+        <div>
+          <h2>{stats.cancelled}</h2>
+          <p>Cancelled</p>
+        </div>
 
-</div>
+      </div>
 
-<div className="stat-card">
+    </div>
 
-<div className="stat-icon">
-❌
-</div>
-
-<h2>{cancelled}</h2>
-
-<p>Cancelled</p>
-
-</div>
-
-</div>
-</>
-)
+  );
 
 }
 

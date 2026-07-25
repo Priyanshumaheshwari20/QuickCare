@@ -5,17 +5,46 @@ import Footer from "../Footer/Footer";
 import "../Doctor/DoctorList.css";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 function DoctorList() {
 const navigate =useNavigate()
+const location = useLocation();
+const [sortBy, setSortBy] = useState("default");
+
+const [favourites, setFavourites] = useState(
+  JSON.parse(localStorage.getItem("favouriteDoctors")) || []
+);
+
+const [selectSpecialization, setSelectSpecialization] = useState(
+  location.state?.speciality || ""
+);
   const [fetchDoctorsItems, setFetchDoctorsItems] = useState([]);
-  const [selectSpecialization, setSelectSpecialization] = useState("");
 
   const filteredDoctors = selectSpecialization
     ? fetchDoctorsItems.filter(
         (item) => item.specialization === selectSpecialization
       )
     : fetchDoctorsItems;
+
+
+    const sortedDoctors = [...filteredDoctors].sort((a, b) => {
+  switch (sortBy) {
+    case "name":
+      return a.name.localeCompare(b.name);
+
+    case "feeLow":
+      return a.consultationFee - b.consultationFee;
+
+    case "feeHigh":
+      return b.consultationFee - a.consultationFee;
+
+    case "experience":
+      return b.experience - a.experience;
+
+    default:
+      return 0;
+  }
+});
 
   useEffect(() => {
 
@@ -33,9 +62,26 @@ const navigate =useNavigate()
       }
     };
 
+    
     getDoctors();
 
   }, []);
+
+const toggleFavourite = (doctor) => {
+  let updated;
+
+  const exists = favourites.find((item) => item._id === doctor._id);
+
+  if (exists) {
+    updated = favourites.filter((item) => item._id !== doctor._id);
+  } else {
+    updated = [...favourites, doctor];
+  }
+
+  setFavourites(updated);
+  localStorage.setItem("favouriteDoctors", JSON.stringify(updated));
+};
+
 
   return (
     <>
@@ -111,16 +157,52 @@ const navigate =useNavigate()
 
           <h1>Discover experienced doctors for your needs.</h1>
 
+          <div
+  style={{
+    display: "flex",
+    justifyContent: "flex-end",
+    margin: "20px 0",
+  }}
+>
+  <select
+    value={sortBy}
+    onChange={(e) => setSortBy(e.target.value)}
+    className="form-select"
+    style={{
+      width: "250px",
+      borderRadius: "10px",
+      fontWeight: "600",
+    }}
+  >
+    <option value="default">Sort By</option>
+    <option value="name">Name (A-Z)</option>
+    <option value="feeLow">Fee (Low to High)</option>
+    <option value="feeHigh">Fee (High to Low)</option>
+    <option value="experience">Experience (High to Low)</option>
+  </select>
+</div>
+
           <div className="row g-4">
 
-            {filteredDoctors.length === 0 ? (
+            {sortedDoctors.length === 0 ? (
               <p>No Doctors Found</p>
             ) : (
-              filteredDoctors.map((item) => (
+              sortedDoctors.map((item) => (
                 <div className="col-lg-3 col-md-6" key={item._id}>
 
                   <div className="doctor-card">
-
+<div style={{ textAlign: "right" }}>
+  <span
+    style={{
+      fontSize: "26px",
+      cursor: "pointer",
+      userSelect: "none",
+    }}
+    onClick={() => toggleFavourite(item)}
+  >
+    {favourites.some((doc) => doc._id === item._id) ? "❤️" : "🤍"}
+  </span>
+</div>
                     <div className="doctor-image">👨‍⚕️</div>
 
                     <h4   onClick={() => navigate(`/DoctorDetails/${item._id}`)}>{item.name}</h4>
@@ -141,6 +223,30 @@ const navigate =useNavigate()
                      
                       ₹{item.consultationFee}
                     </p>
+
+                    <p style={{ display: "flex" }}>
+  <strong>Experience :</strong>&nbsp;
+  {item.experience} Years
+</p>
+
+{
+item.availability ?
+
+<p
+style={{color:"green"}}
+>
+🟢 Available
+</p>
+
+:
+
+<p
+style={{color:"red"}}
+>
+🔴 Offline
+</p>
+
+}
 
                     <button className="btn btn-primary w-100"   onClick={() => navigate(`/DoctorDetails/${item._id}`)}>
                       Book Appointment

@@ -3,92 +3,61 @@
     border-radius: 22px;
     padding: 28px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
-    margin-bottom: 25px;
-    overflow: hidden;
 }
 
-.appointment-card h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1e3a8a;
+.appointment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.appointment-card table {
-    width: 100%;
-    border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 18px;
+.appointment-header h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e3a8a;
 }
 
-.appointment-card thead {
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
     color: white;
 }
 
-.appointment-card th {
-    padding: 18px;
-    font-size: 15px;
+thead th {
+    padding: 16px;
     font-weight: 600;
     text-align: left;
 }
 
-.appointment-card td {
-    padding: 16px 18px;
-    font-size: 15px;
-    border-bottom: 1px solid #eef2f7;
-    color: #374151;
-}
-
-.appointment-card tbody tr {
+tbody tr {
+    border-bottom: 1px solid #edf2f7;
     transition: .3s;
 }
 
-.appointment-card tbody tr:hover {
+tbody tr:hover {
     background: #f8fbff;
 }
 
-.appointment-card tbody tr:last-child td {
-    border-bottom: none;
-}
-
-
-/* Status Colors */
-
-.appointment-card td:last-child {
-    font-weight: 600;
-}
-
-.appointment-card td:last-child:contains("Pending") {
-    color: #d97706;
-}
-
-.appointment-card td:last-child:contains("Completed") {
-    color: #16a34a;
-}
-
-.appointment-card td:last-child:contains("Cancelled") {
-    color: #dc2626;
-}
-
-@media(max-width:900px) {
-    .appointment-card {
-        overflow-x: auto;
-    }
-    .appointment-card table {
-        min-width: 700px;
-    }
+tbody td {
+    padding: 18px 16px;
+    font-size: 15px;
+    color: #374151;
 }
 
 .status {
-    padding: 7px 14px;
+    padding: 8px 15px;
     border-radius: 30px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     display: inline-block;
 }
 
 .status.pending {
-    background: #fff4d6;
+    background: #fff7e6;
     color: #d97706;
 }
 
@@ -102,7 +71,18 @@
     color: #dc2626;
 }
 
-.status.confirmed {
-    background: #dbeafe;
-    color: #2563eb;
+.no-data {
+    text-align: center;
+    padding: 30px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+@media(max-width:768px) {
+    .appointment-card {
+        overflow-x: auto;
+    }
+    table {
+        min-width: 650px;
+    }
 }

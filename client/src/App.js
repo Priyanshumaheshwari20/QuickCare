@@ -16,7 +16,7 @@ import DoctorDashboard from "./DoctorDashBoard/│      DoctorDashboard";
 import PrescriptionPage from "./DoctorDashBoard/Prescription/PrescriptionPage";
 import PatientDashboard from "./PatientDashboard/PatientDashboard";
 import MyPrescription from "./PatientDashboard/MyPrescription/MyPrescription";
-
+import FavouriteDoctors from "./components/FavouriteDoctors/FavouriteDoctors";
 function App() {
   return (
     <>
@@ -57,6 +57,17 @@ function App() {
 path="/MyPrescription"
 element={<MyPrescription/>}
 />
+
+
+<Route path="/PatientDashboard" element={<PatientDashboard />} />
+
+<Route path="/MyAppointments" element={<MyAppointments />} />
+
+<Route path="/MyProfile" element={<MyProfile />} />
+
+<Route path="/MyPrescription" element={<MyPrescription />} />
+  <Route path="/favourites" element={<FavouriteDoctors />} />
+
       </Routes>
     </>
   );

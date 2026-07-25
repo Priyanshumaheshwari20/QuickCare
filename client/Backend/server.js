@@ -6,6 +6,7 @@ import patientRoutes from "./routes/PatientRoutes.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import prescriptionRoutes from "./routes/PrescriptionRoutes.js";
 import documentRoutes from "./routes/documentRoutes.js"
+import path from "path";
 const app = express();
 
 connectDB();
@@ -27,3 +28,4 @@ app.use("/api/documents", documentRoutes);
 app.listen(5000, () => {
     console.log("Server Running on Port 5000");
 });
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));

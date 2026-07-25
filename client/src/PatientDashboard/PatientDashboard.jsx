@@ -1,5 +1,7 @@
 import React from "react";
 
+import PatientSidebar from "./PatientSidebar/PatientSidebar";
+
 import Header from "./Header/Header";
 import StatsCards from "./StatsCards/StatsCards";
 import AppointmentTable from "./AppointmentTable/AppointmentTable";
@@ -9,8 +11,12 @@ import ProfileCard from "./ProfileCard/ProfileCard";
 import "./PatientDashboard.css";
 
 function PatientDashboard() {
+
   return (
+
     <div className="patient-dashboard">
+
+      <PatientSidebar />
 
       <div className="patient-main">
 
@@ -21,12 +27,17 @@ function PatientDashboard() {
         <div className="patient-grid">
 
           <div className="left-section">
+
             <AppointmentTable />
+
             <PrescriptionList />
+
           </div>
 
           <div className="right-section">
+
             <ProfileCard />
+
           </div>
 
         </div>
@@ -34,7 +45,9 @@ function PatientDashboard() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default PatientDashboard;

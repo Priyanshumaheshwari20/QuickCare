@@ -59,42 +59,49 @@ fetchAppointments();
 
             <tr key={item._id}>
 
-   <td>{item.patientId.name}</td>
+<td>
+{
+  item.patientId
+  ? item.patientId.name
+  : "Patient Not Available"
+}
+</td>
 
-<td>{item.patientId.age}</td>
+<td>
+{
+  item.patientId
+  ? item.patientId.age
+  : "-"
+}
+</td>
 
+<td>
+{item.time}
+</td>
 
-              <td>{item.time}</td>
+<td>
+<span
+className={`status-badge ${item.status.toLowerCase()}`}
+>
+{item.status}
+</span>
+</td>
 
-              <td>
-
-                <span
-                  className={`status-badge ${item.status.toLowerCase()}`}
-                >
-                  {item.status}
-                </span>
-
-              </td>
-
-              <td>
+<td>
 <button 
 onClick={() =>
-    navigate("/prescription", {
-        state: {
-            appointment: item
-        }
-    })
+ navigate("/prescription", {
+   state:{
+    appointment:item
+   }
+ })
 }
-
-style={{padding:"8px" , fontSize:"1rem",color:"white" , background:"green", borderRadius:"22px" , border:"2px solid green"
-}}
 >
-    View
+View
 </button>
+</td>
 
-              </td>
-
-            </tr>
+</tr>
 
           ))}
 

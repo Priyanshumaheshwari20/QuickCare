@@ -1,16 +1,11 @@
 import Document from "../models/Document.js";
-
 export const uploadDocument = async(req, res) => {
 
     try {
-
         console.log("BODY:", req.body);
         console.log("FILE:", req.file);
-
-
         // agar PDF nahi aayi
         if (!req.file) {
-
             return res.status(400).json({
                 message: "PDF not found"
             });
@@ -19,8 +14,6 @@ export const uploadDocument = async(req, res) => {
 
 
         const { patientId, doctorId } = req.body;
-
-
         const document = await Document.create({
 
             patientId: patientId,
@@ -46,20 +39,11 @@ export const uploadDocument = async(req, res) => {
 
 
     } catch (error) {
-
-
         console.log(error);
-
-
         res.status(500).json({
-
             success: false,
-
             message: error.message
 
         });
-
-
     }
-
 };
