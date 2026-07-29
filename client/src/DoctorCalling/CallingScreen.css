@@ -1,0 +1,109 @@
+.calling-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+}
+
+.calling-card {
+    width: 420px;
+    padding: 50px;
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(18px);
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
+    }
+    70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.calling-card h2 {
+    margin-top: 30px;
+    font-size: 34px;
+}
+
+.calling-card p {
+    margin-top: 12px;
+    opacity: .8;
+}
+
+.dots {
+    margin-top: 30px;
+}
+
+.dots span {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: bounce 1s infinite;
+}
+
+.dots span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.dots span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.timer {
+    font-size: 38px;
+    margin: 35px 0;
+    font-weight: bold;
+}
+
+.cancel-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border: none;
+    border-radius: 14px;
+    background: #ef4444;
+    color: white;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.cancel-btn:hover {
+    background: #dc2626;
+}

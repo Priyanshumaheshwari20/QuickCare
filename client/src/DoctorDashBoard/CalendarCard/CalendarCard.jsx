@@ -1,82 +1,63 @@
 import React from "react";
-import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaFilePrescription,
+  FaUserInjured,
+  FaChartBar,
+} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./CalenderCard.css";
 
-function CalendarCard() {
 
-  const schedules = [
+function CalendarCard() {
+  const navigate = useNavigate();
+
+  const actions = [
     {
-      id: 1,
-      patient: "Rahul Sharma",
-      time: "10:00 AM",
+      title: "View Appointments",
+      icon: <FaCalendarAlt />,
+      color: "blue",
+      path: "/doctor-appointments",
     },
     {
-      id: 2,
-      patient: "Priya Gupta",
-      time: "11:30 AM",
+      title: "Write Prescription",
+      icon: <FaFilePrescription />,
+      color: "green",
+      path: "/doctor-prescription",
     },
     {
-      id: 3,
-      patient: "Amit Verma",
-      time: "03:00 PM",
+      title: "Patient History",
+      icon: <FaUserInjured />,
+      color: "purple",
+      path: "/patient-history",
+    },
+    {
+      title: "Reports & Analytics",
+      icon: <FaChartBar />,
+      color: "orange",
+      path: "/reports",
     },
   ];
 
   return (
-    <div className="calendar-card">
+    <div className="quick-actions-card">
 
-      <div className="calendar-header">
+      <h3>Quick Actions</h3>
 
-        <h4>
-          <FaCalendarAlt />
-          Today's Schedule
-        </h4>
+      <div className="quick-grid">
 
-      </div>
-
-      <div className="calendar-date">
-
-        <h2>
-          {new Date().toLocaleDateString("en-IN", {
-            day: "numeric",
-            month: "long",
-          })}
-        </h2>
-
-        <p>
-          {new Date().toLocaleDateString("en-IN", {
-            weekday: "long",
-          })}
-        </p>
-
-      </div>
-
-      <div className="schedule-list">
-
-        {schedules.map((item) => (
-
+        {actions.map((item, index) => (
           <div
-            className="schedule-item"
-            key={item.id}
+            key={index}
+            className={`quick-box ${item.color}`}
+            onClick={() => navigate(item.path)}
           >
-
-            <div>
-
-              <h6>{item.patient}</h6>
-
-              <span>
-                <FaClock />
-                {item.time}
-              </span>
-
+            <div className={`quick-icon ${item.color}`}>
+              {item.icon}
             </div>
 
-            <button className="btn btn-outline-primary btn-sm">
-              View
-            </button>
-
+            <h4>{item.title}</h4>
           </div>
-
         ))}
 
       </div>

@@ -5,33 +5,30 @@ import {  FaTachometerAlt,  FaCalendarCheck,  FaUserInjured,  FaFileMedical,  Fa
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { useNavigate} from "react-router-dom";
 
 import "./SideBar.css";
 
 function Sidebar() {
   const location = useLocation();
-
+const navigate = useNavigate()
   const menuItems = [
     {
       name: "Dashboard",
       icon: <FaTachometerAlt />,
       path: "/DoctorDashboard",
     },
-    {
-      name: "Appointments",
-      icon: <FaCalendarCheck />,
-      path: "/DoctorAppointments",
-    },
+    
     {
       name: "Patients",
       icon: <FaUserInjured />,
       path: "/Patients",
     },
-    {
-      name: "Prescription",
-      icon: <FaFileMedical />,
-      path: "/Prescription",
-    },
+   {
+  name: "Prescription",
+  icon: <FaFileMedical />,
+  path: `/prescription/${localStorage.getItem("appointmentId") || ""}`,
+},
     {
       name: "History",
       icon: <FaHistory />,
@@ -41,12 +38,7 @@ function Sidebar() {
       name: "Profile",
       icon: <FaUserMd />,
       path: "/DoctorProfile",
-    },
-    {
-      name: "Settings",
-      icon: <FaCog />,
-      path: "/Settings",
-    },
+    }
   ];
 
   const handleLogout = () => {
@@ -65,23 +57,6 @@ function Sidebar() {
       <div className="sidebar-logo">
         <h2>🩺 QuickCare</h2>
         <p>Doctor Panel</p>
-      </div>
-
-      {/* Doctor Info */}
-      <div className="doctor-profile">
-
-        <div className="doctor-avatar">
-          👨‍⚕️
-        </div>
-
-        <h5>
-          {localStorage.getItem("doctorName")}
-        </h5>
-
-        <span className="online-status">
-          🟢 Online
-        </span>
-
       </div>
 
       {/* Menu */}

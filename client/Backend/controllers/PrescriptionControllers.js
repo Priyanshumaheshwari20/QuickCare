@@ -21,7 +21,6 @@ export const createPrescription = async(req, res) => {
         } = req.body;
 
         console.log("Report ID:", report);
-
         const document = await Document.findById(report);
 
         console.log("Document:", document);
@@ -172,7 +171,6 @@ export const deletePrescription = async(req, res) => {
 
 
 export const getPatientPrescriptions = async(req, res) => {
-
     try {
 
         const prescriptions = await Prescription.find({

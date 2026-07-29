@@ -1,38 +1,23 @@
-.dashboard-container {
+.dashboard {
     display: flex;
-    min-height: 100vh;
     background: #f8fafc;
+    min-height: 100vh;
 }
 
 
 /* Main Content */
 
-.dashboard-main {
+.dashboard-content {
     margin-left: 270px;
     width: calc(100% - 270px);
-    padding: 30px;
     min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 
-/* Dashboard Sections */
-
-.dashboard-content {
-    width: 100%;
-}
-
-
-/* Common Card Style */
-
-.dashboard-card {
-    background: white;
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-}
-
-
-/* Bottom Section */
+/* Grid */
 
 .dashboard-grid {
     display: grid;
@@ -41,13 +26,8 @@
     margin-top: 30px;
 }
 
-
-/* Table + Activity Area */
-
 .left-section {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+    min-width: 0;
 }
 
 .right-section {
@@ -57,23 +37,10 @@
 }
 
 
-/* Loading */
+/* Tablet */
 
-.dashboard-loading {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    font-weight: 600;
-    color: #2563eb;
-}
-
-
-/* Responsive */
-
-@media(max-width:1200px) {
-    .dashboard-main {
+@media(max-width:992px) {
+    .dashboard-content {
         margin-left: 85px;
         width: calc(100% - 85px);
     }
@@ -82,19 +49,16 @@
     }
 }
 
-@media(max-width:992px) {
-    .dashboard-main {
-        padding: 20px;
-    }
-}
+
+/* Mobile */
 
 @media(max-width:600px) {
-    .dashboard-main {
+    .dashboard {
+        flex-direction: column;
+    }
+    .dashboard-content {
         margin-left: 0;
         width: 100%;
         padding: 15px;
-    }
-    .dashboard-container {
-        flex-direction: column;
     }
 }
