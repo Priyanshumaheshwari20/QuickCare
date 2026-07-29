@@ -1,14 +1,20 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import Sidebar from "../DoctorDashBoard/SideBar/SideBar"
 import Header from "./Header/Header";
 import StatsCards from "./StatsCards/StatsCards";
 import AppointmentTable from "./AppointmentTable/AppointmentTable";
 import CalendarCard from "./CalendarCard/CalendarCard";
-import ActivityCard from "./ActivityCard/ActivityCard";
-
+import socket from "../Socket/socket";
 import "./DoctorDashboard.css";
-
 function DoctorDashboard() {
+  useEffect(() => {
+  const doctorId = localStorage.getItem("doctorId");
+
+  if (doctorId) {
+    socket.emit("register", doctorId);
+  }
+}, []);
+
   return (
     <div className="dashboard">
 
@@ -37,7 +43,7 @@ function DoctorDashboard() {
           {/* Right */}
           <div className="right-section">
             <CalendarCard />
-            <ActivityCard />
+      
           </div>
 
         </div>

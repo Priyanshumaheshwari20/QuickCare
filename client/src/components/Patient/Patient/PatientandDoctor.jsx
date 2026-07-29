@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../../Home/Navbar/Navbar";
 import PatientLogin from "./PatientLogin";
 import DoctorLogin from "../DoctorLogin";
 
@@ -9,7 +8,6 @@ function RoleLogin() {
 
   return (
     <>
-      <Navbar />
 
       {loginType === "doctor" ? (
         <DoctorLogin changeRole={() => setLoginType("patient")} />

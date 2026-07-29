@@ -54,8 +54,9 @@ function DoctorLogin({ changeRole }) {
   text: "Welcome Doctor!",
   timer: 2000,
   showConfirmButton: false,
-}).then(() => {
-  navigate("/");
+})
+.then(() => {
+  navigate("/DoctorDashboard");
 });
     } catch (error) {
 

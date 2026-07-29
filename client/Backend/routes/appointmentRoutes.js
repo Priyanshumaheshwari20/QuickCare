@@ -7,26 +7,27 @@ import {
     cancelAppointment,
     getAppointmentCount,
     getAppointmentById,
+    getPatientCount,
+    updateAppointmentStatus
 } from "../controllers/AppointmentControllers.js";
 
 const router = express.Router();
 
-// Book Appointment
 router.post("/", createAppointment);
 
-// Get Patient Appointments
 router.get("/patient/:patientId", getPatientAppointments);
 
-// Get Doctor Appointments
 router.get("/doctor/:doctorId", getDoctorAppointments);
 
-// Get Appointment Count
 router.get("/count/:doctorId", getAppointmentCount);
 
-// Get Single Appointment
+// 👇 Isko yahan rakho
+router.get("/patients/count/:doctorId", getPatientCount);
+router.put("/status/:appointmentId", updateAppointmentStatus);
+
+// 👇 Generic route hamesha last me
 router.get("/:appointmentId", getAppointmentById);
 
-// Delete Appointment
 router.delete("/:id", cancelAppointment);
 
 export default router;

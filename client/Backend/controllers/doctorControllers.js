@@ -3,9 +3,7 @@ import Doctor from "../models/Doctor.js";
 export const doctorSignup = async(req, res) => {
     try {
         console.log("Request Body:", req.body);
-
         const doctor = await Doctor.create(req.body);
-
         res.status(201).json({
             message: "Doctor Registered Successfully",
             doctor,
@@ -24,7 +22,6 @@ export const doctorSignup = async(req, res) => {
 export const getDoctors = async(req, res) => {
     try {
         const doctors = await Doctor.find();
-
         res.status(200).json({
             doctors
         });

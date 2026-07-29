@@ -17,6 +17,8 @@ import PrescriptionPage from "./DoctorDashBoard/Prescription/PrescriptionPage";
 import PatientDashboard from "./PatientDashboard/PatientDashboard";
 import MyPrescription from "./PatientDashboard/MyPrescription/MyPrescription";
 import FavouriteDoctors from "./components/FavouriteDoctors/FavouriteDoctors";
+import VideoCall from "./VideoCall/VideoCall"
+import CallingScreen from "./DoctorCalling/CallingScreen";
 function App() {
   return (
     <>
@@ -67,7 +69,17 @@ element={<MyPrescription/>}
 
 <Route path="/MyPrescription" element={<MyPrescription />} />
   <Route path="/favourites" element={<FavouriteDoctors />} />
+<Route path="/video/:appointmentId" element={<VideoCall />} />
+<Route
+path="/calling/:appointmentId"
+element={<CallingScreen/>}
+/>
 
+
+<Route
+  path="/prescription/:appointmentId"
+  element={<PrescriptionPage />}
+/>
       </Routes>
     </>
   );
