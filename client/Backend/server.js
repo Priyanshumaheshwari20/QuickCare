@@ -13,16 +13,18 @@ import appointmentRoutes from "./routes/appointmentRoutes.js";
 import prescriptionRoutes from "./routes/PrescriptionRoutes.js";
 import documentRoutes from "./routes/documentRoutes.js";
 import videoRoutes from "./routes/videoRoutes.js";
-
+import medicalHistoryRoutes from "./routes/medicalHistory.js";
 dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
 
-// Socket.io
-const io = new Server(httpServer, {
+// =======================
+// SOCKET.IO
+// =======================
+export const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:3000", // Agar Vite use kar rahe ho to 5173 kar dena
+        origin: "http://localhost:3000", // Vite ho to 5173 kar dena
         methods: ["GET", "POST"],
     },
 });
@@ -33,14 +35,22 @@ const users = {};
 io.on("connection", (socket) => {
     console.log("User Connected:", socket.id);
 
+    // =======================
+    // REGISTER USER
+    // =======================
     socket.on("register", (userId) => {
         users[userId] = socket.id;
+
+        // Join personal room
+        socket.join(userId);
+
         console.log("Registered Users:", users);
     });
 
-    // Doctor -> Patient
+    // =======================
+    // DOCTOR -> PATIENT
+    // =======================
     socket.on("call-patient", ({ doctorId, patientId, appointmentId }) => {
-
         const patientSocket = users[patientId];
 
         if (patientSocket) {
@@ -49,12 +59,12 @@ io.on("connection", (socket) => {
                 appointmentId,
             });
         }
-
     });
 
-    // Patient -> Doctor
+    // =======================
+    // PATIENT -> DOCTOR
+    // =======================
     socket.on("accept-call", ({ doctorId, appointmentId }) => {
-
         const doctorSocket = users[doctorId];
 
         if (doctorSocket) {
@@ -62,9 +72,11 @@ io.on("connection", (socket) => {
                 appointmentId,
             });
         }
-
     });
 
+    // =======================
+    // DISCONNECT
+    // =======================
     socket.on("disconnect", () => {
         console.log("User Disconnected:", socket.id);
 
@@ -76,20 +88,30 @@ io.on("connection", (socket) => {
 
         console.log("Registered Users:", users);
     });
-
 });
 
-// Database
+// =======================
+// DATABASE
+// =======================
 connectDB();
 
-// Middleware
+// =======================
+// MIDDLEWARE
+// =======================
 app.use(cors());
 app.use(express.json());
 
-// Static Folder
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+// =======================
+// STATIC FOLDER
+// =======================
+app.use(
+    "/uploads",
+    express.static(path.join(process.cwd(), "uploads"))
+);
 
-// Routes
+// =======================
+// ROUTES
+// =======================
 app.get("/", (req, res) => {
     res.send("Backend Running...");
 });
@@ -100,8 +122,10 @@ app.use("/api/appointments", appointmentRoutes);
 app.use("/api/prescriptions", prescriptionRoutes);
 app.use("/api/documents", documentRoutes);
 app.use("/api/video", videoRoutes);
-
-// Server
+app.use("/api/medical-history", medicalHistoryRoutes);
+// =======================
+// START SERVER
+// =======================
 httpServer.listen(5000, () => {
     console.log("🚀 Server Running on Port 5000");
 });

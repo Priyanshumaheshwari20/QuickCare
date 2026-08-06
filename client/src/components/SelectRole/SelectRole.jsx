@@ -2,6 +2,7 @@ import React from "react";
 import  "../SelectRole/SelectRole.css"
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
+import Navbar from "../Home/Navbar/Navbar";
 function SelectRole() {
   return (
     <>
@@ -9,21 +10,11 @@ function SelectRole() {
 
       {/* Navbar */}
 
-      <nav className="role-navbar">
+<Navbar/>
 
-        <div className="logo">
+      
 
-          <h2>🩺 TeleCare</h2>
-
-          <p>Your Health, Our Priority</p>
-
-        </div>
-
-        <Link to="/" className="back-home">
-          🏠 Back to Home
-        </Link>
-
-      </nav>
+    
 
       {/* Main Card */}
 

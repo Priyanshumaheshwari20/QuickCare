@@ -143,13 +143,13 @@ body {
 
 /*  IMAGE  hai*/
 
-.hero-right {
+.hero-right-ladki {
     flex: 1;
     display: flex;
     justify-content: center;
 }
 
-.hero-right img {
+.hero-right-ladki img {
     width: 28.125rem;
     height: 38.75rem;
     border-radius: 1.625rem;

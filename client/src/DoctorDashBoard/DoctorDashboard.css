@@ -1,29 +1,13 @@
-.dashboard {
-    display: flex;
-    background: #f8fafc;
-    min-height: 100vh;
-}
-
-
-/* Main Content */
-
-.dashboard-content {
-    margin-left: 270px;
-    width: calc(100% - 270px);
-    min-height: 100vh;
-    padding: 30px;
-    box-sizing: border-box;
-    overflow-x: hidden;
-}
-
-
-/* Grid */
+/* =========================
+GRID
+========================= */
 
 .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 25px;
     margin-top: 30px;
+    align-items: start;
 }
 
 .left-section {
@@ -37,28 +21,41 @@
 }
 
 
-/* Tablet */
+/* =========================
+WHEN SIDEBAR COLLAPSED
+(Appointment, My Profile etc.)
+========================= */
+
+
+/* Sidebar open from hamburger */
+
+
+/* =========================
+TABLET
+========================= */
 
 @media(max-width:992px) {
     .dashboard-content {
-        margin-left: 85px;
-        width: calc(100% - 85px);
+        margin-left: 0;
+        width: 100%;
+        padding: 80px 20px 20px;
     }
     .dashboard-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
 
-/* Mobile */
+/* =========================
+MOBILE
+========================= */
 
 @media(max-width:600px) {
-    .dashboard {
-        flex-direction: column;
-    }
     .dashboard-content {
-        margin-left: 0;
-        width: 100%;
-        padding: 15px;
+        padding: 75px 15px 15px;
+    }
+    .dashboard-grid {
+        gap: 15px;
     }
 }

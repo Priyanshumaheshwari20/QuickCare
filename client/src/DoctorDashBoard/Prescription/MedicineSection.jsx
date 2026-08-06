@@ -1,4 +1,5 @@
 import React from "react";
+import "./PrescriptionPage.css";
 
 function MedicineSection({
   medicines,
@@ -15,7 +16,7 @@ function MedicineSection({
 
         <button
           className="add-medicine-btn"
-          onClick={addMedicine}
+          style={{padding:"10px , 20px"}} onClick={addMedicine}
         >
           + Add Medicine
         </button>

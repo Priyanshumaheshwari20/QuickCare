@@ -1,95 +1,217 @@
-import React from "react";
 import "./About.css";
 import Navbar from "../Navbar/Navbar";
-import Footer from "../../Footer/Footer";
-
+import Footer from "../../Footer/Footer"
 function About() {
   return (
     <>
-      <Navbar />
+    <Navbar/>
+    <div className="about">
 
-      {/* Hero */}
-      <section className="about-hero">
-        <div className="container text-center">
-          <h1>About Us</h1>
-          <p>Home / About</p>
+      {/* Hero Section */}
+
+      <section className="hero">
+
+        <div className="hero-left">
+
+          <span className="tag">
+            💙 Smart Healthcare Platform
+          </span>
+
+          <h1>
+            Healthcare <br />
+            Made <span>Simple.</span>
+          </h1>
+
+          <p>
+            QuickCare connects patients with experienced doctors through
+            secure online appointments and video consultations.
+            Quality healthcare should be accessible anytime,
+            anywhere.
+          </p>
+
+       
+
         </div>
-      </section>
 
-      {/* About Section */}
-      <section className="about-section container py-5">
+        <div className="hero-right">
 
-        <div className="row align-items-center">
+          <img
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700"
+            alt="doctor"
+          />
 
-          {/* Left */}
-          <div className="col-lg-6">
-
-            <img
-              src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=900"
-              className="img-fluid rounded shadow mb-4"
-              alt=""
-            />
-
-            <div className="row">
-
-              <div className="col-7">
-                <img
-                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900"
-                  className="img-fluid rounded shadow"
-                  alt=""
-                />
-              </div>
-
-             
-
-            </div>
-
+          <div className="floating card1">
+            ❤️ 5000+ Happy Patients
           </div>
 
-          {/* Right */}
+          <div className="floating card2">
+            👨‍⚕️ 100+ Doctors
+          </div>
 
-          <div className="col-lg-6">
+          <div className="floating card3">
+            📹 Video Consultation
+          </div>
 
-            <span className="about-tag">
-              ABOUT TELECARE
-            </span>
+        </div>
 
-            <h2>
-              Excellence In Healthcare <br />
-              Rooted In Trust.
-            </h2>
+      </section>
 
+
+
+{/* ================= WHO WE ARE ================= */}
+
+<section className="who">
+
+  <div className="who-image">
+
+    <img
+      src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=700"
+      alt="Medical Team"
+    />
+
+  </div>
+
+  <div className="who-content">
+
+    <span className="small-title">
+      ABOUT QUICKCARE
+    </span>
+
+    <h2>
+      Healthcare That Fits <br /> Your Lifestyle
+    </h2>
+
+    <p>
+      At QuickCare, we believe healthcare should be simple, fast, and
+      accessible. Whether you need an online consultation or want to
+      book an appointment with an experienced doctor, everything is
+      available in one secure platform.
+    </p>
+
+    <p>
+      Our mission is to bridge the gap between patients and healthcare
+      professionals using modern technology and a user-friendly
+      experience.
+    </p>
+
+    <div className="about-boxes">
+
+      <div className="box">
+        <h3>100+</h3>
+        <span>Doctors</span>
+      </div>
+
+      <div className="box">
+        <h3>5000+</h3>
+        <span>Patients</span>
+      </div>
+
+      <div className="box">
+        <h3>99%</h3>
+        <span>Success</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+{/* ================= QUICKCARE PROMISE ================= */}
+
+<section className="promise">
+
+    <div className="promise-heading">
+
+        <span>OUR PROMISE</span>
+
+        <h2>More Than Healthcare, We Deliver Trust.</h2>
+
+        <p>
+            Every interaction on QuickCare is built around trust, care,
+            security, and speed because your health deserves nothing less.
+        </p>
+
+    </div>
+
+    <div className="promise-container">
+
+        <div className="promise-card">
+            <div className="promise-icon">💙</div>
+            <h3>We Care</h3>
             <p>
-              TeleCare connects patients with certified doctors through
-              secure online consultations. Our mission is to provide
-              quality healthcare that is accessible anytime and
-              anywhere.
+                Every patient receives personalized attention and a seamless healthcare experience.
             </p>
-
-            <ul className="about-list">
-              <li>✔ Trusted & Verified Doctors</li>
-              <li>✔ Secure Medical Records</li>
-              <li>✔ AI Consultation Summary</li>
-              <li>✔ 24/7 Online Support</li>
-            </ul>
-
-            <button className="btn btn-primary btn-lg mt-3">
-              Learn More
-            </button>
-
-          </div>
-
         </div>
-  
-<h3  style={{marginTop:"5rem" , color:"gray"  , letterSpacing:"2px"}}> What is QuickCare ?</h3> 
-<h4 className="QuickCareAns"> QuickCare is an innovative digital healthcare platform dedicated to transforming the way patients access quality medical services. By bringing together highly qualified healthcare professionals across a wide range of medical specialties, we create a seamless bridge between patients and trusted medical expertise.
 
-Our platform is thoughtfully designed to simplify the healthcare journey—from discovering the right specialist and exploring verified doctor profiles to scheduling appointments with confidence. At QuickCare, we combine technology, trust, and compassionate care to deliver a healthcare experience that is efficient, reliable, and patient-centered.
+        <div className="promise-card">
+            <div className="promise-icon">🛡️</div>
+            <h3>We Protect</h3>
+            <p>
+                Your personal information and medical records remain private and secure.
+            </p>
+        </div>
 
-Whether you're seeking preventive care, specialist consultations, or expert medical guidance, QuickCare ensures that professional healthcare is always accessible, convenient, and just a few clicks away.</h4>
-      </section>
+        <div className="promise-card">
+            <div className="promise-icon">⚡</div>
+            <h3>We Respond</h3>
+            <p>
+                Fast appointment booking and quick communication whenever you need us.
+            </p>
+        </div>
 
-      <Footer />
+        <div className="promise-card">
+            <div className="promise-icon">🤝</div>
+            <h3>We Support</h3>
+            <p>
+                From booking to consultation, we're here to make healthcare simple.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+{/* ================= QUICKCARE ECOSYSTEM ================= */}
+
+<section className="ecosystem">
+
+    <div className="eco-heading">
+        <span>OUR ECOSYSTEM</span>
+        <h2>Everything Revolves Around Your Health</h2>
+        <p>
+            QuickCare brings every healthcare service together in one seamless experience.
+        </p>
+    </div>
+
+    <div className="eco-circle">
+
+        <div className="center-circle">
+            <h2>QuickCare</h2>
+            <p>Your Health Hub</p>
+        </div>
+
+        <div className="bubble top">👨‍⚕️ Doctor</div>
+        <div className="bubble right">📹 Video Call</div>
+        <div className="bubble bottom">💊 Prescription</div>
+        <div className="bubble left">📅 Appointment</div>
+
+        <div className="bubble top-left">❤️ Care</div>
+        <div className="bubble top-right">🔒 Security</div>
+        <div className="bubble bottom-left">📄 Records</div>
+        <div className="bubble bottom-right">⭐ Support</div>
+
+    </div>
+
+</section>
+    </div>
+
+    <Footer/>
+
     </>
   );
 }

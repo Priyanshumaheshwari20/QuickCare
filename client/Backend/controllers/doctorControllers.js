@@ -119,3 +119,38 @@ export const toggleAvailability = async(req, res) => {
     }
 
 }
+
+
+export const updateDoctor = async(req, res) => {
+    try {
+
+        const doctor = await Doctor.findByIdAndUpdate(
+            req.params.id,
+            req.body, {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        if (!doctor) {
+            return res.status(404).json({
+                success: false,
+                message: "Doctor not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Doctor Updated Successfully",
+            doctor,
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+
+    }
+};

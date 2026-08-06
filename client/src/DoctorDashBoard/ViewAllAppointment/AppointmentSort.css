@@ -1,0 +1,38 @@
+.appointment-sort {
+    height: 43px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    background: #fbfdff;
+    border: 1px solid #dce5ef;
+    border-radius: 11px;
+    color: #7190b0;
+    transition: .25s;
+}
+
+.appointment-sort:hover {
+    border-color: #b9d5f5;
+}
+
+.appointment-sort:focus-within {
+    background: #fff;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, .10);
+}
+
+.appointment-sort svg {
+    font-size: 14px;
+}
+
+.appointment-sort select {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    color: #243b5a;
+    font-size: 13px;
+    font-weight: 600;
+}

@@ -145,50 +145,21 @@ Email
 </label>
 
 
-<input
+<input type="email" className="form-control"placeholder="Enter Email"name="email"
 
-type="email"
-
-className="form-control"
-
-placeholder="Enter Email"
-
-name="email"
-
-value={formData.email}
-
-onChange={handleChange}
-
-required
-
-/>
+value={formData.email}onChange={handleChange}required/>
 
 
 </div>
-
-
-
-
-
 {/* Password UI only */}
 
 <div className="mb-3">
-
-
 <label className="form-label">
 Password
 </label>
 
 
-<input
-
-type="password"
-
-className="form-control"
-
-placeholder="Enter Password"
-
-name="password"
+<input  type="password"  className="form-control"  placeholder="Enter Password"  name="password"
 
 value={formData.password}
 
