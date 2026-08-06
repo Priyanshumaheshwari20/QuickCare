@@ -1,4 +1,8 @@
 import React from "react";
+import "./PrescriptionPage.css";
+import { useNavigate } from "react-router-dom";
+import socket from "../../Socket/socket";
+import axios from "axios";
 
 function RightPanel({
   appointment,
@@ -6,10 +10,52 @@ function RightPanel({
   setPdfFile,
   handleUploadPDF,
 }) {
+
+  const navigate = useNavigate();
+
+  const doctorId = localStorage.getItem("doctorId");
+
+
+  const handleStartCall = async()=>{
+
+    try{
+
+      await axios.put(
+        `http://localhost:5000/api/appointments/status/${appointment._id}`,
+        {
+          status:"Waiting"
+        }
+      );
+
+
+      socket.emit("call-patient",{
+
+        doctorId,
+
+        patientId: appointment.patientId._id,
+
+        appointmentId: appointment._id
+
+      });
+
+
+
+      navigate(`/calling/${appointment._id}`);
+
+
+    }catch(error){
+
+      console.log(error);
+
+    }
+
+  };
+
+
   return (
     <div className="right-panel">
 
-      {/* Patient Information */}
+
       <div className="info-card">
 
         <h3>Patient Information</h3>
@@ -46,7 +92,7 @@ function RightPanel({
 
       </div>
 
-      {/* General Information */}
+
 
       <div className="info-card">
 
@@ -84,45 +130,62 @@ function RightPanel({
 
       </div>
 
-      {/* Medical Report */}
+
 
       <div className="info-card">
 
         <h3>Medical Report</h3>
 
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => setPdfFile(e.target.files[0])}
-        />
 
-        <button
-          className="upload-btn"
-          onClick={handleUploadPDF}
-        >
-          Upload Report
-        </button>
+        <div className="file-upload">
+
+
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={(e)=>setPdfFile(e.target.files[0])}
+          />
+
+
+          <button
+            className="upload-btn"
+            onClick={handleUploadPDF}
+          >
+
+            Upload Report
+
+          </button>
+
+
+        </div>
+
 
       </div>
 
-      {/* Consultation */}
+
+
 
       <div className="info-card video-card">
 
         <h3>Consultation</h3>
 
-        <span className="video-tag">
-          Video Call
-        </span>
 
-        <button className="start-call-btn">
+        <button 
+          className="start-call-btn"
+          onClick={handleStartCall}
+        >
+
           Start Video Call
+
         </button>
 
+
       </div>
+
 
     </div>
   );
 }
+
 
 export default RightPanel;

@@ -1,0 +1,147 @@
+.profile-page {
+    min-height: 100vh;
+    background: #f4f8ff;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profile-card {
+    width: 100%;
+    max-width: 1100px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.12);
+}
+
+.profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.profile-top h2 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.profile-top button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
+.profile-top button:hover {
+    background: #1d4ed8;
+}
+
+.profile-user {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.profile-avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #2563eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.15);
+}
+
+.profile-user h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #1f2937;
+}
+
+.profile-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.field input,
+.field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+    background: #f8fbff;
+    font-size: 15px;
+    color: #374151;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.field textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    outline: none;
+}
+
+.field input[readonly],
+.field textarea[readonly] {
+    background: #f3f4f6;
+    cursor: default;
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 20px;
+    }
+    .profile-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .profile-user {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-form {
+        grid-template-columns: 1fr;
+    }
+    .profile-top button {
+        margin-left: 0;
+    }
+}

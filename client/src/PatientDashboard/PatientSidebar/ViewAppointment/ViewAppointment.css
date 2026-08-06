@@ -1,0 +1,190 @@
+/* ===============================
+   VIEW APPOINTMENT PAGE ONLY
+================================ */
+
+.view-appointment-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px;
+    background: #f5f9ff;
+    box-sizing: border-box;
+}
+
+
+/* Header */
+
+.view-appointment-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #102a43;
+    margin-bottom: 25px;
+}
+
+
+/* Tabs */
+
+.view-appointment-container .appointment-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.view-appointment-container .appointment-tabs button {
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: 1px solid #dbe7f5;
+    background: white;
+    color: #64748b;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.view-appointment-container .appointment-tabs button:hover {
+    background: #eaf3ff;
+    color: #1677ff;
+}
+
+.view-appointment-container .appointment-tabs button.active {
+    background: linear-gradient( 135deg, #1677ff, #005bea);
+    color: white;
+    border: none;
+    box-shadow: 0 8px 20px rgba(22, 119, 255, .25);
+}
+
+
+/* Cards */
+
+.view-appointment-container .appointment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.view-appointment-container .appointment-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e5edf7;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+    transition: .3s;
+}
+
+.view-appointment-container .appointment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .10);
+}
+
+
+/* Doctor Info */
+
+.view-appointment-container .appointment-card h3 {
+    font-size: 21px;
+    color: #102a43;
+    margin-bottom: 12px;
+}
+
+.view-appointment-container .appointment-card p {
+    margin: 8px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* Right Side */
+
+.view-appointment-container .status-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+
+/* Status */
+
+.view-appointment-container .status-section span {
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.view-appointment-container .pending,
+.view-appointment-container .confirmed {
+    background: #fff3cd;
+    color: #b77900;
+}
+
+.view-appointment-container .completed {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.view-appointment-container .cancelled {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+
+/* Buttons */
+
+.view-appointment-container .join-btn {
+    background: #1677ff;
+    color: white;
+    border: none;
+    padding: 11px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.view-appointment-container .join-btn:hover {
+    background: #005bea;
+}
+
+.view-appointment-container .prescription-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 11px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.view-appointment-container .prescription-btn:hover {
+    background: #12803a;
+}
+
+
+/* Empty State */
+
+.view-appointment-container .no-data {
+    background: white;
+    padding: 50px;
+    text-align: center;
+    border-radius: 20px;
+    color: #64748b;
+    font-size: 17px;
+}
+
+
+/* Mobile */
+
+@media(max-width:768px) {
+    .view-appointment-container .appointment-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .view-appointment-container .status-section {
+        align-items: flex-start;
+    }
+    .view-appointment-container .appointment-tabs {
+        flex-wrap: wrap;
+    }
+}

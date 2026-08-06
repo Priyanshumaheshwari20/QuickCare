@@ -29,7 +29,7 @@ const navigate = useNavigate()
           `http://localhost:5000/api/appointments/patient/${patientId}`
         );
 
-        const appointments = res.data.appointments;
+        const appointments = res.data;
 
         setStats({
           total: appointments.length,

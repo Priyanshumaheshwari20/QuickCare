@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./PrescriptionPage.css";
 
 function PrescriptionActions({ handleSavePrescription }) {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function PrescriptionActions({ handleSavePrescription }) {
       </button>
 
       <button
-        className="cancel-btn"
+        className="cancel-btn"  style={{width:"150px"}}
         onClick={() => navigate("/DoctorDashboard")}
       >
         Cancel

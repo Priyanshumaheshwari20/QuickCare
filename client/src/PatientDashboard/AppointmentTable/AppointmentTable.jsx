@@ -16,14 +16,27 @@ function AppointmentTable() {
 
         const id = localStorage.getItem("patientId");
 
+        if (!id) {
+          setAppointments([]);
+          return;
+        }
+
         const res = await axios.get(
           `http://localhost:5000/api/appointments/patient/${id}`
         );
 
-        setAppointments(res.data.appointments);
+        console.log("Patient appointments:", res.data);
+
+        setAppointments(
+          Array.isArray(res.data) ? res.data : []
+        );
 
       } catch (error) {
-        console.log(error);
+
+        console.log("Get appointments error:", error);
+
+        setAppointments([]);
+
       }
 
     };
@@ -34,11 +47,12 @@ function AppointmentTable() {
 
 
   return (
-
     <div className="appointment-card">
 
       <div className="appointment-header">
+
         <h3>My Appointments</h3>
+
       </div>
 
 
@@ -51,7 +65,6 @@ function AppointmentTable() {
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
-            <th>Action</th>
           </tr>
 
         </thead>
@@ -59,15 +72,14 @@ function AppointmentTable() {
 
         <tbody>
 
-        {
-          appointments.length > 0 ? (
+          {appointments.length > 0 ? (
 
-            appointments.map((item)=>(
+            appointments.map((item) => (
 
               <tr key={item._id}>
 
                 <td>
-                   {item.doctorId?.name}
+                  {item.doctorId?.name || "Unknown Doctor"}
                 </td>
 
 
@@ -84,42 +96,17 @@ function AppointmentTable() {
                 <td>
 
                   <span
-                    className={`status ${item.status.toLowerCase()}`}
+                    className={`status ${
+                      item.status?.toLowerCase() || ""
+                    }`}
                   >
-                    {item.status}
+                    {item.status || "Pending"}
                   </span>
 
                 </td>
 
 
-                <td>
-
-                  {
-                    item.status === "Confirmed" ? (
-
-                      <button
-                        className="video-btn"
-                        onClick={() =>
-                          navigate(`/video-call/${item._id}`)
-                        }
-                      >
-                        Join Video Call
-                      </button>
-
-                    ) : (
-
-                      <button
-                        className="video-btn disabled"
-                        disabled
-                      >
-                        Not Available
-                      </button>
-
-                    )
-                  }
-
-                </td>
-
+                
 
               </tr>
 
@@ -135,19 +122,14 @@ function AppointmentTable() {
 
             </tr>
 
-          )
-        }
-
+          )}
 
         </tbody>
 
       </table>
 
-
     </div>
-
   );
-
 }
 
 export default AppointmentTable;

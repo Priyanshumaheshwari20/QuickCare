@@ -1,97 +1,193 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-import {  FaTachometerAlt,  FaCalendarCheck,  FaUserInjured,  FaFileMedical,  FaHistory,  FaUserMd,
-  FaCog,
-  FaSignOutAlt,
+import {
+  FaHome,
+  FaCalendarCheck,
+  FaUser,
+  FaSignOutAlt
 } from "react-icons/fa";
-import { useNavigate} from "react-router-dom";
 
 import "./SideBar.css";
 
-function Sidebar() {
-  const location = useLocation();
-const navigate = useNavigate()
-  const menuItems = [
-    {
-      name: "Dashboard",
-      icon: <FaTachometerAlt />,
-      path: "/DoctorDashboard",
-    },
-    
-    {
-      name: "Patients",
-      icon: <FaUserInjured />,
-      path: "/Patients",
-    },
-   {
-  name: "Prescription",
-  icon: <FaFileMedical />,
-  path: `/prescription/${localStorage.getItem("appointmentId") || ""}`,
-},
-    {
-      name: "History",
-      icon: <FaHistory />,
-      path: "/ConsultationHistory",
-    },
-    {
-      name: "Profile",
-      icon: <FaUserMd />,
-      path: "/DoctorProfile",
-    }
-  ];
 
-  const handleLogout = () => {
+function Sidebar({ open, setOpen, isDashboard }) {
+
+
+  const navigate = useNavigate();
+
+
+
+  const logout = () => {
+
     localStorage.removeItem("doctorId");
     localStorage.removeItem("doctorName");
     localStorage.removeItem("role");
-    localStorage.removeItem("token");
 
-    window.location.href = "/";
+    navigate("/");
+
   };
 
+
+
   return (
-    <div className="sidebar">
+    <>
 
-      {/* Logo */}
-      <div className="sidebar-logo">
-        <h2>🩺 QuickCare</h2>
-        <p>Doctor Panel</p>
-      </div>
 
-      {/* Menu */}
-      <ul className="sidebar-menu">
+      {/* Hamburger - Other Pages */}
+      {!isDashboard && (
 
-        {menuItems.map((item) => (
-          <li
-            key={item.name}
-            className={
-              location.pathname === item.path
-                ? "active"
-                : ""
-            }
-          >
-            <Link to={item.path}>
-              <span>{item.icon}</span>
+        <button
+          className="hamburger-btn"
+          onClick={() => setOpen(!open)}
+        >
+          ☰
+        </button>
 
-              <span>{item.name}</span>
-            </Link>
-          </li>
-        ))}
+      )}
 
-      </ul>
 
-      {/* Logout */}
-      <button
-        className="logout-btn"
-        onClick={handleLogout}
+
+      {/* Overlay */}
+
+      <div
+        className={`sidebar-overlay ${open ? "show" : ""}`}
+        onClick={() => setOpen(false)}
+      ></div>
+
+
+
+
+      {/* Sidebar */}
+
+      <aside
+        className={`
+          sidebar
+          ${!isDashboard ? "collapsed-layout" : ""}
+          ${open ? "open" : ""}
+        `}
       >
-        <FaSignOutAlt />
-        Logout
-      </button>
 
-    </div>
+
+
+        <div>
+
+
+          {/* Logo */}
+
+          <div className="sidebar-logo">
+
+            <h2>
+              QuickCare
+            </h2>
+
+            <p>
+              Doctor Panel
+            </p>
+
+          </div>
+
+
+
+
+          {/* Menu */}
+
+          <ul className="sidebar-menu">
+
+
+            <li>
+
+              <NavLink 
+                to="/DoctorDashboard"
+                onClick={() => setOpen(false)}
+              >
+
+                <FaHome />
+
+                Dashboard
+
+              </NavLink>
+
+            </li>
+
+
+
+
+
+            <li>
+
+              <NavLink
+                to="/doctor/view-all-appointments"
+                onClick={() => setOpen(false)}
+              >
+
+                <FaCalendarCheck />
+
+                Appointments
+
+              </NavLink>
+
+            </li>
+
+
+
+
+
+            <li>
+
+              <NavLink
+                to="/DoctorProfile"
+                onClick={() => setOpen(false)}
+              >
+
+                <FaUser />
+
+                Profile
+
+              </NavLink>
+
+            </li>
+
+
+
+
+
+         
+
+
+
+          </ul>
+
+
+        </div>
+
+
+
+
+
+        {/* Logout */}
+
+        <button
+          className="logout-btn"
+          onClick={logout}
+        >
+
+          <FaSignOutAlt />
+
+          Logout
+
+
+        </button>
+
+
+
+      </aside>
+
+
+
+    </>
   );
 }
+
 
 export default Sidebar;

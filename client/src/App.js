@@ -2,24 +2,40 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import Home from "./components/Home/Home";
 import DoctorSignup from "./components/Home/AddDoctor/AddDoctor";
 import DoctorList from "./components/Doctor/DoctorList";
 import DoctorDetails from "./components/DoctorDetails/DoctorDetails";
 import About from "./components/Home/About/About";
 import SelectRole from "./components/SelectRole/SelectRole";
-import PatientSignup from "./components/Patient/PatientSignup";
-import RoleLogin from "./components/Patient/Patient/PatientandDoctor";
+
+import PatientSignup from "./components/LoginPatientandDoctor/PatientSignup";
+import RoleLogin from "./components/LoginPatientandDoctor/Patient/PatientandDoctor";
+
 import MyAppointments from "./components/MyAppointments/MyAppointments";
-import MyProfile from "./components/MyProfile/MyProfile";
-import DoctorDashboard from "./DoctorDashBoard/│      DoctorDashboard";
+import MyProfile from "./DoctorDashBoard/MyProfile/MyProfile";
+
+import DoctorDashboard from "./DoctorDashBoard/DoctorDashboard";
 import PrescriptionPage from "./DoctorDashBoard/Prescription/PrescriptionPage";
+
 import PatientDashboard from "./PatientDashboard/PatientDashboard";
 import MyPrescription from "./PatientDashboard/MyPrescription/MyPrescription";
+
 import FavouriteDoctors from "./components/FavouriteDoctors/FavouriteDoctors";
-import VideoCall from "./VideoCall/VideoCall"
+
+import VideoCall from "./VideoCall/VideoCall";
 import CallingScreen from "./DoctorCalling/CallingScreen";
+
+import ViewAllAppointment from "./DoctorDashBoard/ViewAllAppointment/ViewAllAppointment";
+import ViewAppointment from "./PatientDashboard/PatientSidebar/ViewAppointment/ViewAppointment";
+
+import MedicalHistory from "./DoctorDashBoard/MedicalHistory/MedicalHistory";
+import ProfileCard from "./PatientDashboard/ProfileCard/ProfileCard";
+
+
 function App() {
+
   return (
     <>
       <ToastContainer
@@ -29,57 +45,125 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Home />} />
 
+        <Route path="/" element={<Home />} />
 
         <Route path="/DoctorSignup" element={<DoctorSignup />} />
 
         <Route path="/DoctorList" element={<DoctorList />} />
 
-        <Route path="/DoctorDetails/:id" element={<DoctorDetails />} />
+        <Route 
+          path="/DoctorDetails/:id" 
+          element={<DoctorDetails />} 
+        />
 
         <Route path="/About" element={<About />} />
 
         <Route path="/SelectRole" element={<SelectRole />} />
 
-        <Route path="/patient-signup" element={<PatientSignup />} />
 
-<Route path="/login" element={<RoleLogin />} />
-        <Route path="/myappointments" element={<MyAppointments />} />
+        {/* Authentication */}
+        <Route 
+          path="/patient-signup" 
+          element={<PatientSignup />} 
+        />
 
-        <Route path="/MyProfile" element={<MyProfile />} />
-
-        <Route path="/DoctorDashboard" element={<DoctorDashboard />} />
-
-        <Route path="/prescription" element={<PrescriptionPage />} />
-
-
-<Route path="/PatientDashboard"element={<PatientDashboard/>}/>
-<Route
-path="/MyPrescription"
-element={<MyPrescription/>}
-/>
+        <Route 
+          path="/login" 
+          element={<RoleLogin />} 
+        />
 
 
-<Route path="/PatientDashboard" element={<PatientDashboard />} />
+        {/* Patient */}
+        <Route 
+          path="/PatientDashboard" 
+          element={<PatientDashboard />} 
+        />
 
-<Route path="/MyAppointments" element={<MyAppointments />} />
+        <Route 
+          path="/PatientProfile" 
+          element={<ProfileCard />} 
+        />
 
-<Route path="/MyProfile" element={<MyProfile />} />
+        <Route 
+          path="/myappointments" 
+          element={<MyAppointments />} 
+        />
 
-<Route path="/MyPrescription" element={<MyPrescription />} />
-  <Route path="/favourites" element={<FavouriteDoctors />} />
-<Route path="/video/:appointmentId" element={<VideoCall />} />
-<Route
-path="/calling/:appointmentId"
-element={<CallingScreen/>}
-/>
+        <Route 
+          path="/MyAppointments" 
+          element={<MyAppointments />} 
+        />
+
+        <Route 
+          path="/MyPrescription" 
+          element={<MyPrescription />} 
+        />
 
 
-<Route
-  path="/prescription/:appointmentId"
-  element={<PrescriptionPage />}
-/>
+        {/* Doctor */}
+        <Route 
+          path="/DoctorDashboard" 
+          element={<DoctorDashboard />} 
+        />
+
+        <Route 
+          path="/DoctorProfile" 
+          element={<MyProfile />} 
+        />
+
+        <Route 
+          path="/MyProfile" 
+          element={<MyProfile />} 
+        />
+
+        <Route 
+          path="/prescription" 
+          element={<PrescriptionPage />} 
+        />
+
+        <Route 
+          path="/prescription/:appointmentId" 
+          element={<PrescriptionPage />} 
+        />
+
+        <Route 
+          path="/doctor/view-all-appointments" 
+          element={<ViewAllAppointment />} 
+        />
+
+        <Route 
+          path="/medical-history/:patientId" 
+          element={<MedicalHistory />} 
+        />
+
+
+        {/* Other */}
+        <Route 
+          path="/favourites" 
+          element={<FavouriteDoctors />} 
+        />
+
+
+        {/* Video Call */}
+        <Route 
+          path="/video/:appointmentId" 
+          element={<VideoCall />} 
+        />
+
+        <Route 
+          path="/calling/:appointmentId" 
+          element={<CallingScreen />} 
+        />
+
+
+        {/* Patient Appointment View */}
+        <Route 
+          path="/view-appointment" 
+          element={<ViewAppointment />} 
+        />
+
+
       </Routes>
     </>
   );

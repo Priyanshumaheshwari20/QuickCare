@@ -2,15 +2,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
+    background: #ffffff;
     padding: 35px 40px;
     border-radius: 22px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     margin-bottom: 30px;
 }
 
 
-/* LEFT */
+/* =========================
+   LEFT
+========================= */
 
 .header-left {
     display: flex;
@@ -18,25 +20,28 @@
 }
 
 .greeting {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     color: #64748b;
 }
 
 .header-left h1 {
-    margin: 8px 0;
+    margin: 8px 0 2px;
     font-size: 38px;
     color: #111827;
     font-weight: 700;
 }
 
-.header-left h1 span {
+.header-left h3 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
     color: #2563eb;
 }
 
 .header-left p {
     color: #64748b;
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 16px;
 }
 
@@ -50,70 +55,145 @@
 }
 
 
-/* RIGHT */
+/* =========================
+   RIGHT
+========================= */
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 20px;
 }
 
 
-/* Availability */
+/* =========================
+   AVAILABILITY CARD
+========================= */
 
 .availability-card {
-    width: 300px;
+    width: 280px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
+    background: #ffffff;
     border-radius: 18px;
-    padding: 20px;
+    padding: 18px 20px;
     border: 1px solid #e5e7eb;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    transition: 0.3s ease;
 }
 
-.availability-card h5 {
+.availability-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+}
+
+
+/* =========================
+   AVAILABLE CARD
+========================= */
+
+.available-card {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+}
+
+
+/* =========================
+   OFFLINE CARD
+========================= */
+
+.offline-card {
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+
+/* =========================
+   AVAILABILITY INFO
+========================= */
+
+.availability-info h5 {
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 600;
     color: #64748b;
 }
 
-.status {
+
+/* =========================
+   STATUS
+========================= */
+
+.availability-status {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 9px;
+    margin-top: 8px;
 }
+
+
+/* =========================
+   STATUS DOT
+========================= */
 
 .status-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    display: inline-block;
 }
 
-.online {
+
+/* ONLINE */
+
+.status-dot.online {
     background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
 }
 
-.offline {
+
+/* OFFLINE */
+
+.status-dot.offline {
     background: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
 }
+
+
+/* =========================
+   STATUS TEXT
+========================= */
 
 .status-text {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
-    color: #111827;
 }
 
 
-/* Toggle */
+/* GREEN */
+
+.online-text {
+    color: #16a34a;
+}
+
+
+/* RED */
+
+.offline-text {
+    color: #dc2626;
+}
+
+
+/* =========================
+   TOGGLE
+========================= */
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 56px;
+    width: 54px;
     height: 30px;
+    flex-shrink: 0;
 }
 
 .switch input {
@@ -122,62 +202,54 @@
     height: 0;
 }
 
+
+/* SLIDER */
+
 .slider {
     position: absolute;
     inset: 0;
     background: #cbd5e1;
     border-radius: 50px;
     cursor: pointer;
-    transition: .3s;
+    transition: 0.3s ease;
 }
 
-.slider:before {
-    position: absolute;
+
+/* CIRCLE */
+
+.slider::before {
     content: "";
+    position: absolute;
     width: 24px;
     height: 24px;
     left: 3px;
     bottom: 3px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 50%;
-    transition: .3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
 }
 
-input:checked+.slider {
+
+/* ON */
+
+.switch input:checked+.slider {
     background: #22c55e;
 }
 
-input:checked+.slider:before {
-    transform: translateX(26px);
+
+/* MOVE CIRCLE */
+
+.switch input:checked+.slider::before {
+    transform: translateX(24px);
 }
 
 
-/* Button */
+/* =========================
+   RESPONSIVE
+========================= */
 
-.home-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 24px;
-    border: none;
-    border-radius: 12px;
-    background: #2563eb;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.home-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-}
-
-
-/* Responsive */
-
-@media(max-width:992px) {
+@media (max-width: 992px) {
     .dashboard-header {
         flex-direction: column;
         align-items: flex-start;
@@ -185,16 +257,29 @@ input:checked+.slider:before {
     }
     .header-right {
         width: 100%;
-        flex-direction: column;
     }
     .availability-card {
         width: 100%;
     }
-    .home-btn {
-        width: 100%;
-        justify-content: center;
-    }
     .header-left h1 {
         font-size: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-header {
+        padding: 25px 20px;
+    }
+    .header-left h1 {
+        font-size: 27px;
+    }
+    .header-left h3 {
+        font-size: 19px;
+    }
+    .header-left p {
+        font-size: 14px;
+    }
+    .availability-card {
+        padding: 16px;
     }
 }

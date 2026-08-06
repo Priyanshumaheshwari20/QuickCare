@@ -6,6 +6,7 @@ import {
   FaFileMedical,
   FaUser,
   FaCog,
+  FaHistory,
   FaSignOutAlt,
 } from "react-icons/fa";
 import "./PatientSidebar.css";
@@ -21,7 +22,7 @@ function PatientSidebar() {
       icon: <FaHome />,
     },
     {
-      name: "Appointments",
+      name: "MyAppointments",
       path: "/MyAppointments",
       icon: <FaCalendarAlt />,
     },
@@ -32,14 +33,16 @@ function PatientSidebar() {
     },
     {
       name: "My Profile",
-      path: "/MyProfile",
+      path: "/PatientProfile",
       icon: <FaUser />,
     },
+    
+
     {
-      name: "Settings",
-      path: "/Settings",
-      icon: <FaCog />,
-    },
+  name: " View Appointment",
+  icon: <FaHistory />,
+  path:"/view-appointment"
+},
   ];
 
   const logout = () => {

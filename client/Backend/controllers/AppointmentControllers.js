@@ -1,271 +1,348 @@
 import Appointment from "../models/Appointment.js";
-
-
+import Patient from "../models/Patient.js";
+import Doctor from "../models/Doctor.js";
+import { io } from "../server.js";
+// ===============================
+// CREATE APPOINTMENT
+// ===============================
+// ===============================
+// CREATE APPOINTMENT
+// ===============================
 export const createAppointment = async(req, res) => {
     try {
-        const appointment = await Appointment.create(
-            req.body
-        );
+        const {
+            patientId,
+            doctorId,
+            day,
+            date,
+            time,
+        } = req.body;
 
-        res.status(201).json({
-            message: "Appointment Booked Successfully",
-            appointment
+        // Required fields
+        if (!patientId ||
+            !doctorId ||
+            !date ||
+            !time
+        ) {
+            return res.status(400).json({
+                message: "Patient, doctor, date and time are required",
+            });
+        }
+
+        // ==========================================
+        // CONVERT DATE TO FULL FORMAT
+        // ==========================================
+
+        let fullDate = String(date).trim();
+
+        /*
+          Frontend agar sirf 31 bhej raha hai,
+          toh usse full date nahi banaya ja sakta.
+
+          Frontend ko preferably:
+          31-07-2026
+
+          bhejna chahiye.
+        */
+
+        // Check full date format
+        const dateParts = fullDate.split("-");
+
+        if (
+            dateParts.length === 3 &&
+            dateParts[0].length <= 2
+        ) {
+            let dayPart = dateParts[0];
+            let monthPart = dateParts[1];
+            let yearPart = dateParts[2];
+
+            dayPart = dayPart.padStart(2, "0");
+            monthPart = monthPart.padStart(2, "0");
+
+            if (yearPart.length === 2) {
+                yearPart = `20${yearPart}`;
+            }
+
+            fullDate = `${dayPart}-${monthPart}-${yearPart}`;
+        }
+
+        // ==========================================
+        // CHECK DATE
+        // ==========================================
+
+        if (!/^\d{2}-\d{2}-\d{4}$/.test(
+                fullDate
+            )) {
+            return res.status(400).json({
+                message: "Invalid date format. Use DD-MM-YYYY",
+                receivedDate: date,
+            });
+        }
+
+        // ==========================================
+        // CHECK PATIENT
+        // ==========================================
+
+        const patient =
+            await Patient.findById(patientId);
+
+        if (!patient) {
+            return res.status(404).json({
+                message: "Patient not found",
+            });
+        }
+
+        // ==========================================
+        // CHECK DOCTOR
+        // ==========================================
+
+        const doctor =
+            await Doctor.findById(doctorId);
+
+        if (!doctor) {
+            return res.status(404).json({
+                message: "Doctor not found",
+            });
+        }
+
+        // ==========================================
+        // CHECK SAME DOCTOR
+        // SAME DATE + SAME TIME
+        // ==========================================
+
+        const existingAppointment =
+            await Appointment.findOne({
+                doctorId,
+                date: fullDate,
+                time,
+                status: {
+                    $ne: "Cancelled",
+                },
+            });
+
+        if (existingAppointment) {
+            return res.status(409).json({
+                message: "This time slot is already booked for this doctor",
+            });
+        }
+
+        // ==========================================
+        // CREATE APPOINTMENT
+        // ==========================================
+
+        const appointment =
+            new Appointment({
+                patientId,
+                doctorId,
+                day,
+                date: fullDate,
+                time,
+                status: "Pending",
+            });
+
+        await appointment.save();
+
+        return res.status(201).json({
+            message: "Appointment booked successfully",
+            appointment,
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message
+        console.error(
+            "Create Appointment Error:",
+            error
+        );
+
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message,
         });
     }
 };
 
-
-
-
-
+// ===============================
+// GET PATIENT APPOINTMENTS
+// ===============================
 export const getPatientAppointments = async(req, res) => {
     try {
-
         const { patientId } = req.params;
 
         const appointments = await Appointment.find({
-            patientId,
-        }).populate("doctorId");
+                patientId,
+                status: { $ne: "Cancelled" }, // <-- Ye line add karo
+            })
+            .populate(
+                "doctorId",
+                "name specialization qualification experience hospital consultationFee image"
+            )
+            .sort({ date: 1, time: 1 });
 
-
-        res.status(200).json({
-
-            success: true,
-
-            appointments,
-
-        });
-
-
+        return res.status(200).json(appointments);
     } catch (error) {
+        console.error("Get Patient Appointments Error:", error);
 
-        res.status(500).json({
-
-            success: false,
-
-            message: error.message,
-
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message,
         });
-
     }
 };
 
-
-
-export const cancelAppointment = async(req, res) => {
-
+// ===============================
+// CANCEL APPOINTMENT
+// ===============================
+export const deleteAppointment = async(req, res) => {
     try {
-
         const { id } = req.params;
 
-
-        const appointment = await Appointment.findByIdAndDelete(id);
-
+        const appointment = await Appointment.findById(id);
 
         if (!appointment) {
-
             return res.status(404).json({
-
-                success: false,
-
-                message: "Appointment not found",
-
+                message: "Appointment not found"
             });
-
         }
 
+        appointment.status = "Cancelled";
 
-        res.status(200).json({
+        await appointment.save();
 
-            success: true,
-
-            message: "Appointment cancelled successfully",
-
+        return res.status(200).json({
+            message: "Appointment cancelled successfully"
         });
-
 
     } catch (error) {
+        console.error("Cancel Appointment Error:", error);
 
-        res.status(500).json({
-
-            success: false,
-
-            message: error.message,
-
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message
         });
-
     }
-
 };
 
 
+// ===============================
+// GET DOCTOR APPOINTMENTS
+// ===============================
 export const getDoctorAppointments = async(req, res) => {
-
     try {
-
         const { doctorId } = req.params;
 
-
         const appointments = await Appointment.find({
-                doctorId: doctorId
+                doctorId
             })
             .populate(
                 "patientId",
-                "name age gender bloodGroup email phoneNumber emergencyContact state city address pinCode"
-            );
+                "name email phoneNumber gender age place"
+            )
+            .sort({ date: 1, time: 1 });
 
-        res.status(200).json({
-            appointments
-        });
-
+        return res.status(200).json(appointments);
 
     } catch (error) {
+        console.error("Get Doctor Appointments Error:", error);
 
-        res.status(500).json({
-            message: error.message
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message
         });
-
     }
-
 };
 
 
-
+// ===============================
+// GET TOTAL APPOINTMENT COUNT
+// ===============================
 export const getAppointmentCount = async(req, res) => {
-
     try {
-
         const { doctorId } = req.params;
 
-
-        const totalAppointments = await Appointment.countDocuments({
-            doctorId: doctorId
+        const count = await Appointment.countDocuments({
+            doctorId,
+            status: { $ne: "Cancelled" }
         });
 
-
-        res.json({
-            success: true,
-            totalAppointments
-        });
-
-
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-
-    }
-
-}
-
-
-export const getAppointmentById = async(req, res) => {
-
-    try {
-
-        const appointment = await Appointment.findById(req.params.appointmentId)
-            .populate("patientId")
-            .populate("doctorId");
-
-        res.status(200).json({
-            success: true,
-            appointment
+        return res.status(200).json({
+            totalAppointments: count
         });
 
     } catch (error) {
+        console.error("Get Appointment Count Error:", error);
 
-        res.status(500).json({
-            success: false,
-            message: error.message
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message
         });
-
     }
-
 };
 
 
+// ===============================
+// GET UNIQUE PATIENT COUNT
+// ===============================
 export const getPatientCount = async(req, res) => {
-
-    // Async function hai kyunki database se data fetch karna hai.
-    console.log("Patient Count API Hit");
-
     try {
-
-        // Agar database kaam sahi karega to ye block chalega.
-
         const { doctorId } = req.params;
 
-        // URL se doctorId nikal rahe hain.
-        // Example:
-        // /api/appointments/patients/count/12345
-        // doctorId = 12345
+        const appointments = await Appointment.find({
+            doctorId,
+            status: { $ne: "Cancelled" }
+        }).select("patientId");
 
-        const appointments = await Appointment.find({ doctorId });
+        // Unique patient IDs
+        const uniquePatientIds = new Set(
+            appointments.map(
+                (appointment) => appointment.patientId.toString()
+            )
+        );
 
-        // Appointment collection me se is doctor ki saari appointments la rahe hain.
-
-        const uniquePatients = [
-
-            // Naya array bana rahe hain jisme duplicate patient nahi honge.
-
-            ...new Set(
-
-                // Set duplicate values ko automatically remove kar deta hai.
-
-                appointments.map((item) =>
-
-                    // map har appointment par chalega.
-
-                    item.patientId.toString()
-
-                    // Har appointment me se sirf patientId nikal rahe hain.
-                    // toString() isliye use kiya kyunki patientId ObjectId hoti hai.
-                    // Set strings ke saath achhe se unique values banata hai.
-
-                )
-
-            ),
-
-        ];
-
-        res.status(200).json({
-
-            // Success response bhej rahe hain.
-
-            totalPatients: uniquePatients.length,
-
-            // uniquePatients array ki length hi total patients hai.
-
+        return res.status(200).json({
+            totalPatients: uniquePatientIds.size
         });
 
     } catch (error) {
+        console.error("Get Patient Count Error:", error);
 
-        // Agar database ya code me koi error aata hai to catch chalega.
-
-        res.status(500).json({
-
-            // Client ko 500 Internal Server Error bhej rahe hain.
-
-            message: error.message,
-
-            // Actual error message frontend ko bhej rahe hain.
-
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message
         });
-
     }
-
 };
 
+// ===============================
+// GET UNIQUE PATIENT COUNT
+// ===============================
+export const getUniquePatientCount = async(req, res) => {
+    try {
+        const { doctorId } = req.params;
+
+        const patientIds = await Appointment.distinct("patientId", {
+            doctorId,
+            status: { $ne: "Cancelled" }
+        });
+
+        return res.status(200).json({
+            totalPatients: patientIds.length
+        });
+
+    } catch (error) {
+        console.error("Get Unique Patient Count Error:", error);
+
+        return res.status(500).json({
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
 
 export const updateAppointmentStatus = async(req, res) => {
     try {
+        console.log("Status API HIT");
+        console.log(req.params);
+        console.log(req.body);
+
         const { appointmentId } = req.params;
         const { status } = req.body;
 
@@ -273,15 +350,54 @@ export const updateAppointmentStatus = async(req, res) => {
             appointmentId, { status }, { new: true }
         );
 
-        res.json({
-            success: true,
-            appointment,
+
+        if (!appointment) {
+            return res.status(404).json({
+                message: "Appointment not found",
+            });
+        }
+        const populatedAppointment = await Appointment.findById(appointment._id)
+            .populate("patientId", "name email phoneNumber gender age place");
+
+        io.to(appointment.doctorId.toString()).emit(
+            "appointment-status-updated",
+            populatedAppointment
+        );
+
+
+        return res.status(200).json({
+            message: "Status Updated Successfully",
+            appointment: populatedAppointment,
+
         });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+};
+
+
+export const permanentDeleteAppointment = async(req, res) => {
+    try {
+        const { id } = req.params;
+
+        const appointment = await Appointment.findByIdAndDelete(id);
+
+        if (!appointment) {
+            return res.status(404).json({
+                message: "Appointment not found",
+            });
+        }
+
+        return res.status(200).json({
+            message: "Appointment deleted permanently",
+        });
+
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            success: false,
-            message: "Status update failed",
+        return res.status(500).json({
+            message: error.message,
         });
     }
 };

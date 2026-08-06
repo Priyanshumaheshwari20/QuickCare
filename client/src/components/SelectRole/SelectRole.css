@@ -143,6 +143,7 @@
     font-size: 17px;
     cursor: pointer;
     transition: .3s;
+    margin-top: 1.8rem;
 }
 
 .patient-btn:hover {

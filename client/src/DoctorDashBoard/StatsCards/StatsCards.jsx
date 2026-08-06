@@ -1,45 +1,69 @@
+
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import {
   FaCalendarCheck,
   FaUsers,
-  FaFilePrescription,
   FaWallet,
   FaArrowRight,
 } from "react-icons/fa";
 import "./StatsCards.css";
 
 function StatsCards() {
+  const navigate = useNavigate();
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [totalPatients, setTotalPatients] = useState(0);
 
   useEffect(() => {
-    const fetchCount = async () => {
+    const fetchStats = async () => {
       try {
         const doctorId = localStorage.getItem("doctorId");
 
-        const appointmentResponse = await axios.get(
-          `http://localhost:5000/api/appointments/count/${doctorId}`
+        if (!doctorId) {
+          console.log("Doctor ID not found");
+          return;
+        }
+
+        // Get all doctor appointments
+        const response = await axios.get(
+          `http://localhost:5000/api/appointments/doctor/${doctorId}`
         );
 
-        const patientResponse = await axios.get(
-          `http://localhost:5000/api/appointments/patients/count/${doctorId}`
+        console.log("Stats appointments:", response.data);
+
+        // Backend direct array bhej raha hai
+        const appointments = Array.isArray(response.data)
+          ? response.data
+          : response.data?.appointments || [];
+
+        // Cancelled appointments ko count nahi karna
+        const activeAppointments = appointments.filter(
+          (appointment) => appointment.status !== "Cancelled"
         );
 
-        setTotalAppointments(
-          appointmentResponse.data.totalAppointments
+        // Total appointment/slots
+        setTotalAppointments(activeAppointments.length);
+
+        // Unique patients
+        const uniquePatients = new Set(
+          activeAppointments
+            .map((appointment) => appointment.patientId?._id)
+            .filter(Boolean)
         );
 
-        setTotalPatients(
-          patientResponse.data.totalPatients
-        );
+        setTotalPatients(uniquePatients.size);
 
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log("Stats Count Error:", error);
+
+        setTotalAppointments(0);
+        setTotalPatients(0);
       }
     };
 
-    fetchCount();
+    fetchStats();
   }, []);
 
   return (
@@ -61,11 +85,19 @@ function StatsCards() {
 
         </div>
 
-        <a href="/">
-          View all appointments <FaArrowRight />
-        </a>
+       <button
+  type="button"
+  onClick={() => {
+    console.log("CLICKED");
+    navigate("/doctor/view-all-appointments");
+  }}
+  className="stats-link"
+>
+  View all appointments <FaArrowRight />
+</button>
 
       </div>
+
 
       {/* Total Patients */}
       <div className="stats-card">
@@ -82,10 +114,6 @@ function StatsCards() {
           </div>
 
         </div>
-
-        <a href="/">
-          View all patients <FaArrowRight />
-        </a>
 
       </div>
 
@@ -117,3 +145,4 @@ function StatsCards() {
 }
 
 export default StatsCards;
+

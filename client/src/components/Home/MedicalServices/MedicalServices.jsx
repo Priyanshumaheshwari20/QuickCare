@@ -51,9 +51,6 @@ useEffect(() => {
             Comprehensive heart care, from routine checkups to advanced cardiac treatment.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
         </div>
       </div>
 
@@ -73,9 +70,7 @@ useEffect(() => {
             Connect with experienced pulmonologists for personalized care, accurate diagnosis, and effective treatment plans.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+        
         </div>
       </div>
 
@@ -97,9 +92,7 @@ useEffect(() => {
     Consult experienced gynecologists for personalized diagnosis, treatment, and preventive care.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+  
         </div>
       </div>
 
@@ -119,9 +112,6 @@ useEffect(() => {
             Expert eye care services for vision correction, eye diseases, and routine eye examinations.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
         </div>
       </div>
 
@@ -142,9 +132,7 @@ useEffect(() => {
             Professional care for mental and emotional wellness through personalized treatment plans.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+        
         </div>
       </div>
 
@@ -165,9 +153,7 @@ useEffect(() => {
             Advanced otology services for healthy hearing, balance, and long-term ear wellness.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+        
         </div>
       </div>
 
@@ -187,9 +173,7 @@ useEffect(() => {
             Specialized care for blood disorders with accurate diagnosis and personalized treatment.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+        
         </div>
       </div>
 
@@ -208,9 +192,7 @@ useEffect(() => {
             Restore mobility and improve quality of life with expert orthopedic consultation and treatment.
           </p>
 
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+    
         </div>
       </div>
       </div>

@@ -8,6 +8,7 @@ import axios from "axios";
 import MedicineSection from "./MedicineSection";
 import "./PrescriptionPage.css";
 import { toast } from "react-toastify";
+import DoctorLayout from "../DoctorLayout/DoctorLayout";
 
 function PrescriptionPage(){
 const location = useLocation();
@@ -24,12 +25,43 @@ const [loading,setLoading] = useState(false);
 const [diagnosis,setDiagnosis] = useState("");
 const [advice,setAdvice] = useState("");
 const [pdfFile, setPdfFile] = useState(null);
- const [symptoms,setSymptoms] = useState([
-        "Fever",
-        "Headache",
-        "Body Pain",
-        "Sore Throat"
+ const symptomOptions = [
+  "Fever",
+  "Headache",
+  "Cough",
+  "Cold",
+  "Body Pain",
+  "Sore Throat",
+  "Vomiting",
+  "Nausea",
+  "Chest Pain",
+  "Fatigue",
+  "Dizziness",
+  "Joint Pain",
+  "Abdominal Pain",
+  "Diarrhea"
+];
+
+const handleSymptomChange = (symptom) => {
+
+  if (symptoms.includes(symptom)) {
+
+    setSymptoms(
+      symptoms.filter(item => item !== symptom)
+    );
+
+  } else {
+
+    setSymptoms([
+      ...symptoms,
+      symptom
     ]);
+
+  }
+
+};
+
+const [symptoms, setSymptoms] = useState([]);
 
  const [newSymptom,setNewSymptom] = useState("");
 
@@ -92,76 +124,68 @@ const updated = medicines.filter(
  setMedicines(updated);
 };
 
-const addSymptom=()=>{
- if(newSymptom.trim()==="")
-return;
+const addSymptom = () => {
+
+if(newSymptom.trim()==="") return;
+
+if(!symptoms.includes(newSymptom)){
+
 setSymptoms([
-  ...symptoms,   newSymptom
+...symptoms,
+newSymptom
 ]);
-setNewSymptom("");
-};
-
- const removeSymptom=(index)=>{
-const updated = symptoms.filter(
-        (_,i)=>i!==index
-
-        );
- setSymptoms(updated);
-
-
-    };
-
-
-    const handleUploadPDF = async()=>{
-try{
-   if(!pdfFile){
-  toast.error("Please select PDF first");
-  return;
 
 }
- const formData = new FormData();
- formData.append(
-    "pdf",
-    pdfFile
-);
- formData.append(  "patientId",  appointment.patientId._id);
- formData.append(
-  "doctorId",
-  appointment.doctorId._id || appointment.doctorId
-);
-console.log(pdfFile);
 
-console.log("Appointment:", appointment);
-console.log("Doctor:", appointment.doctorId);
-console.log("Patient:", appointment.patientId);
-        const response = await axios.post(
+setNewSymptom("");
 
-            "http://localhost:5000/api/documents/upload",
+};
 
-            formData,
-
-            {
-                headers:{
-                    "Content-Type":"multipart/form-data"
-                }
-            } );
-              toast.success("PDF Uploaded Successfully");
-
-        console.log(response.data);
-        setReportId(response.data.document._id);
+const handleUploadPDF = async () => {
+  try {
+    if (!pdfFile) {
+      toast.error("Please select PDF first");
+      return null;
     }
 
+    const formData = new FormData();
 
-    catch(error){
+    formData.append("pdf", pdfFile);
+    formData.append("patientId", appointment.patientId._id);
+    formData.append(
+      "doctorId",
+      appointment.doctorId._id || appointment.doctorId
+    );
 
-        console.log(error);
-toast.error("PDF Upload Failed");
-    }
+    const response = await axios.post(
+      "http://localhost:5000/api/documents/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
+    toast.success("PDF Uploaded Successfully");
+
+    const uploadedReportId = response.data.document._id;
+
+    setReportId(uploadedReportId);
+
+    return uploadedReportId;   // 👈 ye line add karo
+
+  } catch (error) {
+    console.log(error);
+    toast.error("PDF Upload Failed");
+    return null;
+  }
 };
  const handleSavePrescription = async()=>{
   try{
  setLoading(true);
+ console.log("Report ID:", reportId);
+
 const data={
                  appointmentId:
                 appointment._id,
@@ -213,6 +237,7 @@ console.log(error);
      return <h2>Loading...</h2>
     }
         return (
+<DoctorLayout>
 
         <div className="prescription-page">
 
@@ -261,11 +286,7 @@ console.log(error);
   <div className="patient-right">
 
 
-                    <button  className="back-btn"    onClick={()=>
-                            navigate("/DoctorDashboard") } >
-                               Back Dashboard
-
-                    </button>
+                   
 <h4>    Status </h4>
    <span className="status-tag">     {appointment.status} </span>
   </div>
@@ -279,32 +300,45 @@ console.log(error);
   <div className="tabs">
    <button className="active">       Consultation
    </button>
-
- <button>        Medical History    </button>
-  <button>      Reports  </button>
- <button>     Previous Prescription </button>
- <button>     Notes </button>
 </div>
 
  {/* Symptoms */}
-
 <div className="card">
- <h3>   Symptoms</h3>
-  <div className="symptoms">
-      {      symptoms.map((item,index)=>(
-          <span key={index}>   {item}
 
-   <button onClick={()=> removeSymptom(index)    } >  ×    </button>
-   </span>))}
+<h3>Symptoms</h3>
+
+<div className="symptom-grid">
+{
+  symptomOptions.map((symptom,index)=>(
+
+<label key={index} className="symptom-checkbox">
+
+<input type="checkbox" checked={symptoms.includes(symptom)}onChange={() => handleSymptomChange(symptom)}
+/>
+
+<span>{symptom}</span>
+
+</label>
+
+))
+}
 </div>
 
 <div className="add-symptom">
- <input type="text"  placeholder="Add symptom"  value={newSymptom}
-      onChange={(e)=>  setNewSymptom(e.target.value)}/>
 
-   <button    style={{padding : "10px 20px"  , color:"white"  , borderRadius:"22px", background:"blue"}}     onClick={addSymptom}  >
-   Add     </button>
-   </div>
+<input
+
+type="text" placeholder="Other Symptom"value={newSymptom}onChange={(e)=>setNewSymptom(e.target.value)}
+/>
+
+<button onClick={addSymptom}>
+
+Add
+
+</button>
+
+</div>
+
 </div>
 
 {/* Diagnosis */}
@@ -349,7 +383,7 @@ console.log(error);
 </div> {/* MAIN CONTAINER END */}
 
 </div> 
-
+</DoctorLayout>
 );
 }
 

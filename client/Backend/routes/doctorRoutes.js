@@ -4,7 +4,8 @@ import {
     getDoctors,
     doctorLogin,
     toggleAvailability,
-    getDoctorById
+    getDoctorById,
+    updateDoctor
 } from "../controllers/doctorControllers.js";
 
 const router = express.Router();
@@ -15,4 +16,5 @@ router.get("/", getDoctors);
 router.post("/login", doctorLogin);
 router.put("/availability/:id", toggleAvailability);
 router.get("/:id", getDoctorById);
+router.put("/:id", updateDoctor);
 export default router;

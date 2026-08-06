@@ -137,7 +137,6 @@ prescriptions.map((item)=>(
 
 <div className="info-row">
 
-
 <div className="info-card">
 
 <small>
@@ -146,6 +145,18 @@ Diagnosis
 
 <h3>
 {item.diagnosis}
+</h3>
+
+<small>
+Symptoms
+</small>
+
+<h3  style={{color:"blueviolet"}} >
+{
+  Array.isArray(item.symptoms)
+    ? item.symptoms.join(", ")
+    : item.symptoms || "Not mentioned"
+}
 </h3>
 
 </div>

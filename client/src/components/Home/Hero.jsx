@@ -88,7 +88,7 @@ function Hero() {
       </div>
 
       {/* Right Side */}
-      <div className="hero-right">
+      <div className="hero-right-ladki">
 
         <img
           src="https://images.pexels.com/photos/6749778/pexels-photo-6749778.jpeg"
