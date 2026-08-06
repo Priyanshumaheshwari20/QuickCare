@@ -1,175 +1,135 @@
-.footer {
-    background: #f8f8f8;
+.qc-footer {
+    background: #f7faff;
     padding: 60px 70px;
     margin-top: 60px;
-    min-height: 520px;
 }
 
-.footer-top {
+.qc-footer-top {
     display: flex;
-    justify-content: flex-start;
     align-items: flex-start;
+    gap: 80px;
     flex-wrap: wrap;
-    gap: 5rem;
 }
 
-.footer-image img {
-    margin-left: 3rem;
-    width: 350px;
-    height: 350px;
+
+/* Image */
+
+.qc-footer-image img {
+    width: 330px;
+    height: 330px;
     object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
-.footer-links {
+
+/* Links */
+
+.qc-footer-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 100px
+    gap: 80px;
 }
 
-.footer-links h4 {
+.qc-footer-column {
+    min-width: 150px;
+}
+
+.qc-footer-column h4 {
     font-size: 20px;
-    color: #1c1c1c;
-    margin-bottom: 18px;
     font-weight: 700;
+    color: #0b2c4d;
+    margin-bottom: 20px;
 }
 
-.footer-links p {
-    color: #666;
-    font-size: 15px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.footer-links p:hover {
-    color: grey;
-    transform: translateY(1px);
-}
-
-.footer a {
+.qc-footer-column a {
     text-decoration: none;
 }
 
-.legal {
-    margin-top: 35px;
+.qc-footer-column p {
+    color: #667085;
+    font-size: 15px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.footer hr {
+.qc-footer-column p:hover {
+    color: #0066ff;
+    transform: translateX(5px);
+}
+
+
+/* Line */
+
+.qc-footer hr {
     margin: 45px 0 25px;
     border: none;
-    border-top: 1px solid #d9d9d9;
+    border-top: 1px solid #d8dee9;
 }
 
-.footer-bottom {
+
+/* Bottom */
+
+.qc-footer-bottom {
     text-align: center;
 }
 
-.footer-bottom h5 {
-    color: #777;
+.qc-footer-bottom h5 {
+    color: #667085;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.5px;
 }
 
 
-/* Responsive */
+/* =====================
+      RESPONSIVE
+===================== */
 
-
-/* ===========================
-   Responsive
-=========================== */
-
-
-/* Laptop */
-
-@media (max-width: 1200px) {
-    .footer {
+@media(max-width:1200px) {
+    .qc-footer {
         padding: 50px;
     }
-    .footer-top {
-        gap: 3rem;
-    }
-    .footer-links {
-        gap: 70px;
-    }
-    .footer-image img {
-        width: 300px;
-        height: 300px;
-        margin-left: 0;
-    }
-}
-
-
-/* Tablet */
-
-@media (max-width: 992px) {
-    .footer {
-        padding: 40px 30px;
-    }
-    .footer-top {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 40px;
-    }
-    .footer-image img {
-        width: 260px;
-        height: 260px;
-        margin-left: 0;
-    }
-    .footer-links {
-        justify-content: center;
+    .qc-footer-links {
         gap: 50px;
     }
-}
-
-
-/* Mobile */
-
-@media (max-width: 768px) {
-    .footer {
-        padding: 35px 20px;
-    }
-    .footer-links {
-        gap: 35px;
-    }
-    .footer-links h4 {
-        font-size: 18px;
-    }
-    .footer-links p {
-        font-size: 14px;
-    }
-    .footer-image img {
-        width: 220px;
-        height: 220px;
+    .qc-footer-image img {
+        width: 280px;
+        height: 280px;
     }
 }
 
-
-/* Small Mobile */
-
-@media (max-width: 576px) {
-    .footer {
-        padding: 30px 15px;
-    }
-    .footer-top {
-        gap: 30px;
-    }
-    .footer-links {
+@media(max-width:992px) {
+    .qc-footer-top {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 25px;
     }
-    .footer-image img {
-        width: 180px;
-        height: 180px;
+    .qc-footer-links {
+        justify-content: center;
     }
-    .footer-links p:hover {
-        transform: none;
+}
+
+@media(max-width:768px) {
+    .qc-footer {
+        padding: 40px 25px;
     }
-    .footer-bottom h5 {
-        font-size: 14px;
+    .qc-footer-links {
+        gap: 35px;
+    }
+    .qc-footer-image img {
+        width: 240px;
+        height: 240px;
+    }
+}
+
+@media(max-width:576px) {
+    .qc-footer-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    .qc-footer-image img {
+        width: 200px;
+        height: 200px;
     }
 }
