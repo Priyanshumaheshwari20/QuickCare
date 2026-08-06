@@ -84,11 +84,7 @@ const isLoggedIn =
 
            
 
-            <li className="nav-item">
-              <a className="nav-link fw-semibold" href="#contact">
-                Contact
-              </a>
-            </li>
+            
 
           </ul>
 
