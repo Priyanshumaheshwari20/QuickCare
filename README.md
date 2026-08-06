@@ -128,3 +128,171 @@ http://localhost:3000
 ```
 
 Make sure MongoDB is running and the required `.env` file is configured before starting the backend.
+
+
+
+
+
+
+
+
+
+
+
+
+# 🔄 QuickCare Complete Workflow (Start to End)
+
+## 1. Application Start
+
+When a user opens the QuickCare application, the home page is displayed.  
+The application provides two different user roles:
+
+- Patient
+- Doctor
+
+Both users have separate dashboards and features according to their roles.
+
+
+## 2. User Registration
+
+### Patient Registration
+
+Patients can create their account by providing basic information.
+
+After successful registration, patient details are stored securely in the database and the patient can login to access healthcare services.
+
+
+### Doctor Registration
+
+Doctors can create their professional profile by providing details such as:
+
+- Name
+- Specialization
+- Qualification
+- Experience
+- Hospital Details
+- Consultation Fee
+
+After registration, doctors can access their dedicated dashboard.
+
+
+## 3. Login Process
+
+Patients and doctors can login using their registered email and password.
+
+After successful authentication:
+
+- Patients are redirected to the Patient Dashboard.
+- Doctors are redirected to the Doctor Dashboard.
+
+
+## 4. Patient Dashboard Flow
+
+The Patient Dashboard allows patients to manage their healthcare activities.
+
+Patients can:
+
+- View available doctors
+- Check doctor profiles
+- Search doctors according to specialization
+- Book appointments
+- View appointment history
+- Join online video consultations
+- View digital prescriptions
+
+
+## 5. Doctor Selection and Appointment Booking
+
+Patients can select a doctor based on their requirements.
+
+The appointment process includes:
+
+- Selecting a doctor
+- Choosing available date
+- Selecting available time slot
+- Confirming appointment
+
+After successful booking, the appointment details are stored and displayed on the doctor dashboard.
+
+
+## 6. Doctor Dashboard Flow
+
+The Doctor Dashboard helps doctors manage their consultations.
+
+Doctors can:
+
+- View upcoming appointments
+- Check patient details
+- Manage appointments
+- Start online consultations
+- Create digital prescriptions
+- Update profile information
+
+
+## 7. Video Consultation Flow
+
+QuickCare provides real-time video consultation between doctors and patients.
+
+The video consultation process works as follows:
+
+1. Doctor starts a video call from the dashboard.
+2. Patient receives an incoming call notification.
+3. Patient accepts the call.
+4. Doctor and patient are connected to a secure video room.
+5. Both users can communicate through live audio and video.
+
+Video calling is implemented using:
+
+- Agora RTC SDK for real-time audio and video communication.
+- Socket.io for real-time call notifications and events.
+
+
+## 8. Prescription Creation Flow
+
+After completing the consultation, the doctor creates a digital prescription.
+
+Doctor can add:
+
+- Patient symptoms
+- Medicines
+- Dosage details
+- Instructions
+
+The prescription is saved and becomes available for the patient.
+
+
+## 9. Patient Prescription Flow
+
+Patients can access their prescriptions from the dashboard.
+
+Patients can view:
+
+- Doctor information
+- Symptoms
+- Medicines
+- Dosage instructions
+- Prescription details
+
+
+## 10. Complete Healthcare Journey
+
+The complete QuickCare workflow is:
+
+User Registration  
+↓  
+Login  
+↓  
+Doctor Search  
+↓  
+Appointment Booking  
+↓  
+Doctor Consultation  
+↓  
+Video Call  
+↓  
+Prescription Creation  
+↓  
+Patient Prescription Access  
+
+
+QuickCare provides a complete digital healthcare experience where patients can connect with doctors, attend online consultations, and receive digital prescriptions from anywhere.
