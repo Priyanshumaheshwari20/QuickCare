@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
+
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
+
 import "./DoctorDetails.css";
 
 function DoctorDetails() {
@@ -15,19 +17,23 @@ function DoctorDetails() {
   // ALL TIME SLOTS
   // =====================================================
 
- const timeSlots = [
-  "10:00 AM",
-  "10:40 AM",
-  "11:20 AM",
-  "12:00 PM",
-  "12:40 PM",
-  "1:30 PM",
-  "4:30 PM",
-  "5:20 PM",
-  "6:10 PM",
-  "7:30 PM",
-  "9:00 PM",
-];
+  const timeSlots = [
+    "10:00 AM",
+    "10:40 AM",
+    "11:20 AM",
+    "12:00 PM",
+    "12:40 PM",
+    "1:30 PM",
+    "4:30 PM",
+    "5:20 PM",
+    "6:10 PM",
+    "7:30 PM",
+    "9:00 PM",
+  ];
+
+  // =====================================================
+  // STATES
+  // =====================================================
 
   const [doctor, setDoctor] = useState(null);
   const [days, setDays] = useState([]);
@@ -47,59 +53,37 @@ function DoctorDetails() {
     for (let i = 0; i < 7; i++) {
       const currentDate = new Date();
 
-      currentDate.setDate(
-        currentDate.getDate() + i
-      );
+      currentDate.setDate(currentDate.getDate() + i);
 
-      const dayName =
-        currentDate.toLocaleDateString(
-          "en-US",
-          {
-            weekday: "short",
-          }
-        );
+      const dayName = currentDate.toLocaleDateString("en-US", {
+        weekday: "short",
+      });
 
-      const date =
-        currentDate.getDate();
+      const date = currentDate.getDate();
+      const month = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
 
-      const month =
-        currentDate.getMonth() + 1;
+      const formattedDay = String(date).padStart(2, "0");
+      const formattedMonth = String(month).padStart(2, "0");
 
-      const year =
-        currentDate.getFullYear();
-
-      // DD
-      const formattedDay =
-        String(date).padStart(2, "0");
-
-      // MM
-      const formattedMonth =
-        String(month).padStart(2, "0");
-
-      // FULL DATE
-      // Example: 31-07-2026
-      const fullDate =
-        `${formattedDay}-${formattedMonth}-${year}`;
+      const fullDate = `${formattedDay}-${formattedMonth}-${year}`;
 
       nextDays.push({
         day: dayName,
-        date: date,
-        month: month,
-        year: year,
-        fullDate: fullDate,
+        date,
+        month,
+        year,
+        fullDate,
       });
     }
 
-    console.log(
-      "NEXT 7 DAYS:",
-      nextDays
-    );
+    console.log("NEXT 7 DAYS:", nextDays);
 
     setDays(nextDays);
   }, []);
 
   // =====================================================
-  // FETCH DOCTOR
+  // FETCH DOCTOR DETAILS
   // =====================================================
 
   useEffect(() => {
@@ -109,17 +93,13 @@ function DoctorDetails() {
           "http://localhost:5000/api/doctors"
         );
 
-        const selectedDoctor =
-          response.data.doctors.find(
-            (item) => item._id === id
-          );
+        const selectedDoctor = response.data.doctors.find(
+          (item) => item._id === id
+        );
 
         setDoctor(selectedDoctor);
       } catch (error) {
-        console.log(
-          "DOCTOR FETCH ERROR:",
-          error
-        );
+        console.log("DOCTOR FETCH ERROR:", error);
       }
     };
 
@@ -127,95 +107,98 @@ function DoctorDetails() {
   }, [id]);
 
   // =====================================================
-  // ALL SLOTS ALWAYS VISIBLE
+  // GET AVAILABLE TIME SLOTS
   // =====================================================
 
-const getAvailableSlots = () => {
+  const getAvailableSlots = () => {
+    // If no date is selected, show today's future slots
+    if (!selectedDay) {
+      const today = new Date();
 
-  if (!selectedDay) {
+      const currentMinutes =
+        today.getHours() * 60 + today.getMinutes();
 
-  const today = new Date();
+      return timeSlots.filter((slot) => {
+        let [time, modifier] = slot.split(" ");
 
-  const currentMinutes =
-    today.getHours() * 60 + today.getMinutes();
+        let [hours, minutes] = time.split(":");
 
-  return timeSlots.filter((slot) => {
+        hours = Number(hours);
+        minutes = Number(minutes);
 
-    let [time, modifier] = slot.split(" ");
+        if (modifier === "PM" && hours !== 12) {
+          hours += 12;
+        }
 
-    let [hours, minutes] = time.split(":");
+        if (modifier === "AM" && hours === 12) {
+          hours = 0;
+        }
 
-    hours = Number(hours);
-    minutes = Number(minutes);
+        const slotMinutes = hours * 60 + minutes;
 
-    if (modifier === "PM" && hours !== 12) {
-      hours += 12;
+        return slotMinutes > currentMinutes;
+      });
     }
 
-    if (modifier === "AM" && hours === 12) {
-      hours = 0;
+    // ===================================================
+    // CHECK SELECTED DATE
+    // ===================================================
+
+    const now = new Date();
+
+    const [day, month, year] =
+      selectedDay.fullDate.split("-");
+
+    const selectedDate = new Date(
+      Number(year),
+      Number(month) - 1,
+      Number(day)
+    );
+
+    const isToday =
+      selectedDate.toDateString() ===
+      now.toDateString();
+
+    // Future date → show all slots
+    if (!isToday) {
+      return timeSlots;
     }
 
-    const slotMinutes = hours * 60 + minutes;
+    // Today → show only future slots
+    const currentMinutes =
+      now.getHours() * 60 + now.getMinutes();
 
-    return slotMinutes > currentMinutes;
-  });
-}
+    return timeSlots.filter((slot) => {
+      const [time, modifier] = slot.split(" ");
 
-  const now = new Date();
+      let [hours, minutes] =
+        time.split(":").map(Number);
 
-  const [day, month, year] = selectedDay.fullDate.split("-");
+      if (modifier === "PM" && hours !== 12) {
+        hours += 12;
+      }
 
-  const selectedDate = new Date(
-    Number(year),
-    Number(month) - 1,
-    Number(day)
-  );
+      if (modifier === "AM" && hours === 12) {
+        hours = 0;
+      }
 
-  const isToday =
-    selectedDate.toDateString() === now.toDateString();
+      const slotMinutes =
+        hours * 60 + minutes;
 
-  // Agar future date hai to sab slots dikhao
-  if (!isToday) {
-    return timeSlots;
-  }
+      return slotMinutes > currentMinutes;
+    });
+  };
 
-  const currentMinutes =
-    now.getHours() * 60 + now.getMinutes();
-
-  return timeSlots.filter((slot) => {
-
-    const [time, modifier] = slot.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
-
-    if (modifier === "PM" && hours !== 12) {
-      hours += 12;
-    }
-
-    if (modifier === "AM" && hours === 12) {
-      hours = 0;
-    }
-
-    const slotMinutes = hours * 60 + minutes;
-
-    return slotMinutes > currentMinutes;
-
-  });
-
-};
   // =====================================================
   // BOOK APPOINTMENT
   // =====================================================
 
   const handleAppointment = async () => {
-    // -----------------------------------------
+    // ---------------------------------------------------
     // CHECK LOGIN
-    // -----------------------------------------
+    // ---------------------------------------------------
 
-    if (
-      !patientId ||
-      role !== "patient"
-    ) {
+    if (!patientId || role !== "patient") {
       toast.warning(
         "To book an appointment, please login or create a Patient account.",
         {
@@ -227,88 +210,70 @@ const getAvailableSlots = () => {
       return;
     }
 
-    // -----------------------------------------
+    // ---------------------------------------------------
     // CHECK DATE
-    // -----------------------------------------
+    // ---------------------------------------------------
 
     if (!selectedDay) {
-      toast.warning(
-        "📅 Please select Date",
-        {
-          position: "top-right",
-          autoClose: 2500,
-        }
-      );
+      toast.warning("📅 Please select Date", {
+        position: "top-right",
+        autoClose: 2500,
+      });
 
       return;
     }
 
-    // -----------------------------------------
+    // ---------------------------------------------------
     // CHECK TIME
-    // -----------------------------------------
+    // ---------------------------------------------------
 
     if (!selectedTime) {
-      toast.warning(
-        "🕒 Please select Time",
-        {
-          position: "top-right",
-          autoClose: 2500,
-        }
-      );
+      toast.warning("🕒 Please select Time", {
+        position: "top-right",
+        autoClose: 2500,
+      });
 
       return;
     }
 
     try {
-      // =========================================
+      // -------------------------------------------------
       // FULL DATE
-      //
-      // Example:
-      // 31-07-2026
-      // =========================================
+      // -------------------------------------------------
 
-      const fullDate =
-        selectedDay.fullDate;
+      const fullDate = selectedDay.fullDate;
 
-      // =========================================
+      // -------------------------------------------------
       // BOOKING DATA
-      // =========================================
+      // -------------------------------------------------
 
       const bookingData = {
-        patientId: patientId,
-
+        patientId,
         doctorId: doctor._id,
-
         day: selectedDay.day,
-
         date: fullDate,
-
         time: selectedTime,
       };
 
-      console.log(
-        "BOOKING DATA:",
+      console.log("BOOKING DATA:", bookingData);
+
+      // -------------------------------------------------
+      // POST APPOINTMENT
+      // -------------------------------------------------
+
+      const response = await axios.post(
+        "http://localhost:5000/api/appointments",
         bookingData
       );
-
-      // =========================================
-      // POST APPOINTMENT
-      // =========================================
-
-      const response =
-        await axios.post(
-          "http://localhost:5000/api/appointments",
-          bookingData
-        );
 
       console.log(
         "BOOKING SUCCESS:",
         response.data
       );
 
-      // =========================================
+      // -------------------------------------------------
       // SUCCESS TOAST
-      // =========================================
+      // -------------------------------------------------
 
       toast.success(
         "✅ Appointment Booked Successfully",
@@ -318,27 +283,24 @@ const getAvailableSlots = () => {
         }
       );
 
-      // =========================================
+      // -------------------------------------------------
       // GO TO MY APPOINTMENTS
-      // =========================================
+      // -------------------------------------------------
 
       setTimeout(() => {
         navigate("/myappointments");
       }, 500);
-
     } catch (error) {
       console.log(
         "BOOKING ERROR:",
         error
       );
 
-      // =========================================
+      // -------------------------------------------------
       // SLOT ALREADY BOOKED
-      // =========================================
+      // -------------------------------------------------
 
-      if (
-        error.response?.status === 409
-      ) {
+      if (error.response?.status === 409) {
         toast.error(
           `❌ ${selectedTime} is already booked. Please choose another slot.`,
           {
@@ -351,13 +313,11 @@ const getAvailableSlots = () => {
         return;
       }
 
-      // =========================================
+      // -------------------------------------------------
       // BAD REQUEST
-      // =========================================
+      // -------------------------------------------------
 
-      if (
-        error.response?.status === 400
-      ) {
+      if (error.response?.status === 400) {
         console.log(
           "400 RESPONSE:",
           error.response.data
@@ -376,9 +336,9 @@ const getAvailableSlots = () => {
         return;
       }
 
-      // =========================================
+      // -------------------------------------------------
       // OTHER ERROR
-      // =========================================
+      // -------------------------------------------------
 
       toast.error(
         error.response?.data?.message ||
@@ -413,7 +373,6 @@ const getAvailableSlots = () => {
       <Navbar />
 
       <div className="container doctor-details-section">
-
         <div className="doctor-container">
 
           {/* =================================================
@@ -421,13 +380,9 @@ const getAvailableSlots = () => {
           ================================================= */}
 
           <div className="col-md-2">
-
             <div className="image-box">
-              <h4>
-                Doctor Image
-              </h4>
+              <h4>Doctor Image</h4>
             </div>
-
           </div>
 
           {/* =================================================
@@ -435,35 +390,24 @@ const getAvailableSlots = () => {
           ================================================= */}
 
           <div className="col-md-8">
-
             <div className="details-box">
 
-              <h1>
-                {doctor.name}
-              </h1>
+              <h1>{doctor.name}</h1>
 
               <div className="doctor-info">
-
-                <p>
-                  {doctor.qualification}
-                </p>
+                <p>{doctor.qualification}</p>
 
                 <span>
                   {doctor.experience} Years
                 </span>
-
               </div>
 
-              <h4>
-                About
-              </h4>
+              <h4>About</h4>
 
-              <p>
-                {doctor.about}
-              </p>
+              <p>{doctor.about}</p>
 
               <h4>
-                Appointment Fee :
+                Appointment Fee:
 
                 <span
                   style={{
@@ -471,8 +415,7 @@ const getAvailableSlots = () => {
                     marginLeft: "5px",
                   }}
                 >
-                  ₹
-                  {doctor.consultationFee}
+                  ₹{doctor.consultationFee}
                 </span>
               </h4>
 
@@ -498,101 +441,69 @@ const getAvailableSlots = () => {
                 flexWrap: "wrap",
               }}
             >
+              {days.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => {
+                    // Same date click
+                    if (
+                      selectedDay?.fullDate ===
+                      item.fullDate
+                    ) {
+                      setSelectedDay(null);
+                      setSelectedTime("");
 
-              {days.map(
-                (item, index) => (
+                      return;
+                    }
 
-                  <div
-                    key={index}
+                    // New date
+                    setSelectedDay(item);
 
-                    onClick={() => {
+                    // Reset time
+                    setSelectedTime("");
+                  }}
+                  style={{
+                    width: "90px",
+                    height: "90px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
 
-                      // Same date click
-                      if (
-                        selectedDay?.fullDate ===
-                        item.fullDate
-                      ) {
-                        setSelectedDay(
-                          null
-                        );
+                    border:
+                      selectedDay?.fullDate ===
+                      item.fullDate
+                        ? "2px solid #0d6efd"
+                        : "2px solid black",
 
-                        setSelectedTime(
-                          ""
-                        );
+                    background:
+                      selectedDay?.fullDate ===
+                      item.fullDate
+                        ? "#0d6efd"
+                        : "#fff",
 
-                        return;
-                      }
+                    color:
+                      selectedDay?.fullDate ===
+                      item.fullDate
+                        ? "#fff"
+                        : "#000",
 
-                      // New date
-                      setSelectedDay(
-                        item
-                      );
+                    transition: "0.2s",
+                  }}
+                >
+                  <span>{item.day}</span>
 
-                      // Reset time
-                      setSelectedTime(
-                        ""
-                      );
-                    }}
-
-                    style={{
-                      width: "90px",
-                      height: "90px",
-                      borderRadius: "50%",
-
-                      display: "flex",
-                      flexDirection: "column",
-
-                      justifyContent:
-                        "center",
-
-                      alignItems:
-                        "center",
-
-                      cursor: "pointer",
-
-                      border:
-                        selectedDay?.fullDate ===
-                        item.fullDate
-                          ? "2px solid #0d6efd"
-                          : "2px solid black",
-
-                      background:
-                        selectedDay?.fullDate ===
-                        item.fullDate
-                          ? "#0d6efd"
-                          : "#fff",
-
-                      color:
-                        selectedDay?.fullDate ===
-                        item.fullDate
-                          ? "#fff"
-                          : "#000",
-
-                      transition:
-                        "0.2s",
-                    }}
-                  >
-
-                    <span>
-                      {item.day}
-                    </span>
-
-                    <h4
-                      style={{
-                        margin: 0,
-                      }}
-                    >
-                      {item.date}
-                    </h4>
-
-                  </div>
-                )
-              )}
-
+                  <h4 style={{ margin: 0 }}>
+                    {item.date}
+                  </h4>
+                </div>
+              ))}
             </div>
 
             {/* =================================================
-                SELECTED DATE DISPLAY
+                SELECTED DATE
             ================================================= */}
 
             {selectedDay && (
@@ -632,70 +543,50 @@ const getAvailableSlots = () => {
                 flexWrap: "wrap",
               }}
             >
-
               {getAvailableSlots().map(
                 (time, index) => (
-
                   <div
                     key={index}
-
                     onClick={() => {
-
                       if (
-                        selectedTime ===
-                        time
+                        selectedTime === time
                       ) {
-                        setSelectedTime(
-                          ""
-                        );
+                        setSelectedTime("");
                       } else {
-                        setSelectedTime(
-                          time
-                        );
+                        setSelectedTime(time);
                       }
                     }}
-
                     style={{
-                      padding:
-                        "10px 18px",
+                      padding: "10px 18px",
 
                       border:
-                        selectedTime ===
-                        time
+                        selectedTime === time
                           ? "2px solid #0d6efd"
                           : "2px solid #ccc",
 
                       background:
-                        selectedTime ===
-                        time
+                        selectedTime === time
                           ? "#0d6efd"
                           : "#fff",
 
                       color:
-                        selectedTime ===
-                        time
+                        selectedTime === time
                           ? "#fff"
                           : "#000",
 
-                      borderRadius:
-                        "30px",
+                      borderRadius: "30px",
 
-                      cursor:
-                        "pointer",
+                      cursor: "pointer",
 
-                      fontWeight:
-                        "600",
+                      fontWeight: "600",
 
-                      transition:
-                        "0.2s",
+                      transition: "0.2s",
                     }}
                   >
                     {time}
                   </div>
-
                 )
               )}
-
             </div>
 
             {/* =================================================
@@ -704,17 +595,13 @@ const getAvailableSlots = () => {
 
             <button
               className="btn btn-primary mt-4"
-              onClick={
-                handleAppointment
-              }
+              onClick={handleAppointment}
             >
               Book Appointment
             </button>
 
           </div>
-
         </div>
-
       </div>
 
       <Footer />
@@ -723,3 +610,4 @@ const getAvailableSlots = () => {
 }
 
 export default DoctorDetails;
+

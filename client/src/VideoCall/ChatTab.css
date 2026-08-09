@@ -1,0 +1,106 @@
+.qc-chat-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+
+/* HEADER */
+
+.qc-chat-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.qc-chat-header p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+
+/* MESSAGE AREA */
+
+.qc-chat-messages {
+    flex: 1;
+    margin-top: 12px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* EMPTY STATE */
+
+.qc-chat-empty {
+    text-align: center;
+    color: #64748b;
+}
+
+.qc-chat-empty p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.qc-chat-empty span {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+
+/* INPUT */
+
+.qc-chat-input {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.qc-chat-input input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 13px;
+}
+
+.qc-chat-input input:focus {
+    border-color: #2563eb;
+}
+
+
+/* SEND BUTTON */
+
+.qc-chat-send-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+}
+
+.qc-chat-send-btn:hover {
+    background: #1d4ed8;
+}
+
+
+/* MOBILE */
+
+@media(max-width:1050px) {
+    .qc-chat-container {
+        padding: 15px;
+    }
+}

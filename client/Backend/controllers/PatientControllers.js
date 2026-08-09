@@ -98,32 +98,13 @@ export const patientLogin = async(req, res) => {
 
 
     try {
-
-
-        const {
-            email,
-            password
-        } = req.body;
-
-
-
+        const { email, password } = req.body;
         const patient = await Patient.findOne({ email });
-
-
-
         if (!patient) {
-
-
             return res.status(404).json({
-
                 message: "Patient not found"
-
             });
-
-
         }
-
-
 
         const isPasswordMatch = await bcrypt.compare(
             password,
@@ -133,24 +114,16 @@ export const patientLogin = async(req, res) => {
 
 
         if (!isPasswordMatch) {
-
-
             return res.status(401).json({
-
                 message: "Invalid Password"
 
             });
 
 
         }
-
-
-
         res.status(200).json({
 
             message: "Login Successfully",
-
-
             patient: {
 
                 _id: patient._id,
@@ -184,11 +157,8 @@ export const patientLogin = async(req, res) => {
 
 };
 
-
-
-
-// ===============================
 // Get Patient Profile
+//Database se patient ki profile lekar frontend ko bhejna.
 // ===============================
 
 export const getPatientProfile = async(req, res) => {
@@ -247,103 +217,62 @@ export const getPatientProfile = async(req, res) => {
 
 
 
-
-
-// ===============================
 // Update Patient Profile
 // ===============================
 
 
 export const updatePatientProfile = async(req, res) => {
-
-
     try {
+        const patient = await Patient.findByIdAndUpdate(req.params.id,
 
 
-        const patient = await Patient.findByIdAndUpdate(
-
-            req.params.id,
+                {
 
 
-            {
+                    name: req.body.name,
+
+                    email: req.body.email,
+
+                    gender: req.body.gender,
+
+                    age: req.body.age,
 
 
-                name: req.body.name,
-
-                email: req.body.email,
-
-                gender: req.body.gender,
-
-                age: req.body.age,
+                    bloodGroup: req.body.bloodGroup,
 
 
-                bloodGroup: req.body.bloodGroup,
+                    phoneNumber: req.body.phoneNumber,
 
 
-                phoneNumber: req.body.phoneNumber,
+                    emergencyContact: req.body.emergencyContact,
 
 
-                emergencyContact: req.body.emergencyContact,
+                    state: req.body.state,
 
 
-                state: req.body.state,
+                    city: req.body.city,
 
 
-                city: req.body.city,
+                    address: req.body.address,
 
 
-                address: req.body.address,
+                    pinCode: req.body.pinCode
 
-
-                pinCode: req.body.pinCode
-
-
-
-            },
-
-
-            {
-                new: true
-            }
-
-
-
-        ).select("-password");
-
-
-
-
+                }, {
+                    new: true /* Updated document return karo.*/
+                })
+            .select("-password");
 
         res.status(200).json({
-
-
             success: true,
-
-
             message: "Profile Updated Successfully",
-
-
             patient
-
-
-
         });
-
-
-
     } catch (error) {
-
-
         res.status(500).json({
-
             success: false,
-
             message: error.message
 
         });
-
-
     }
-
-
 };

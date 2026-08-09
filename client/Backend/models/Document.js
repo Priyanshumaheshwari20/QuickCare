@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 
 const documentSchema = new mongoose.Schema({
+
+    appointmentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Appointment",
+        required: true,
+    },
+
     patientId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Patient",
@@ -22,6 +29,7 @@ const documentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
 }, {
     timestamps: true,
 });

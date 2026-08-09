@@ -18,7 +18,7 @@ export const doctorSignup = async(req, res) => {
     }
 };
 
-
+//Ye API database se saare doctors ki list nikal kar frontend ko bhejti hai.
 export const getDoctors = async(req, res) => {
     try {
         const doctors = await Doctor.find();
@@ -33,6 +33,7 @@ export const getDoctors = async(req, res) => {
     }
 };
 
+//Ye API ek specific doctor ki details uski ID ke basis par database se nikalti hai.
 export const getDoctorById = async(req, res) => {
     try {
         const doctor = await Doctor.findById(req.params.id);
@@ -56,6 +57,8 @@ export const getDoctorById = async(req, res) => {
         });
     }
 };
+
+
 
 export const doctorLogin = async(req, res) => {
 
