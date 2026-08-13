@@ -3,8 +3,6 @@ import pkg from "agora-access-token";
 const { RtcTokenBuilder, RtcRole } = pkg;
 
 export const generateToken = (req, res) => {
-    console.log("Agora ID:", process.env.AGORA_APP_ID);
-    console.log("Agora Certificate:", process.env.AGORA_APP_CERTIFICATE);
 
     try {
         const channelName = req.params.channelName;

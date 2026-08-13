@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
-
 import "./ChatTab.css";
 
 function ChatTab() {
 
 const [message,setMessage] = useState("");
-
 const sendMessage = () => {
 
 if(!message.trim()) return;
-
 // socket.io se later send hoga
 
 setMessage("");
@@ -21,9 +18,7 @@ setMessage("");
 return (
 
 <div className="chat-container">
-
-
-    <div className="chat-header">
+ <div className="chat-header">
 
         <h3>
             Live Chat
@@ -36,11 +31,8 @@ return (
     </div>
 
 
-
-    <div className="chat-messages">
-
-
-        <div className="chat-empty">
+  <div className="chat-messages">
+<div className="chat-empty">
 
             <p>
                 No messages yet

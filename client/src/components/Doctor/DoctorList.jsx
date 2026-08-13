@@ -26,7 +26,7 @@ function DoctorList() {
         (item) => item.specialization === selectSpecialization
       )
     : fetchDoctorsItems;
-
+//sort by dropdown
   const sortedDoctors = [...filteredDoctors].sort((a, b) => {
     switch (sortBy) {
       case "name":

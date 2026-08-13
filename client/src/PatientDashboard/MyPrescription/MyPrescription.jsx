@@ -15,7 +15,7 @@ const getData=async()=>{
 
 try{
 
-const id=localStorage.getItem("patientId");
+const id= localStorage.getItem("patientId");
 
 const res=await axios.get(
 `http://localhost:5000/api/prescriptions/patient/${id}`

@@ -118,11 +118,8 @@ const isLoggedIn =
 
       <ul className="dropdown-menu">
 
-        <li>
-          <Link className="dropdown-item" to="/MyProfile">
-            👤 My Profile
-          </Link>
-        </li>
+       
+        
 
         {
           role === "doctor" ? (
