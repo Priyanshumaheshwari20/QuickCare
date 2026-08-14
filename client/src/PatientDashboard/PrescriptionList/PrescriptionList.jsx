@@ -9,7 +9,7 @@ const [prescriptions,setPrescriptions]=useState([]);
 useEffect(()=>{
 const getPrescription=async()=>{
 const id=localStorage.getItem("patientId");
-const res=await axios.get(`http://localhost:5000/api/prescriptions/patient/${id}`);
+const res=await axios.get(`https://quickcare-3.onrender.com/api/prescriptions/patient/${id}`);
 setPrescriptions(res.data.prescriptions);
 }
 getPrescription();

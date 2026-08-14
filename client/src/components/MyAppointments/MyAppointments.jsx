@@ -13,7 +13,7 @@ function MyAppointments() {
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/appointments/patient/${patientId}`
+        `https://quickcare-3.onrender.com/api/appointments/patient/${patientId}`
       );
 
       setAppointments(response.data);
@@ -29,7 +29,7 @@ function MyAppointments() {
   const cancelAppointment = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/appointments/${id}`
+        `https://quickcare-3.onrender.com/api/appointments/${id}`
       );
 
       toast.warning("Appointment Cancelled");

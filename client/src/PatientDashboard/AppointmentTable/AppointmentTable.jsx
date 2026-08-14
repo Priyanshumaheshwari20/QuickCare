@@ -22,7 +22,7 @@ function AppointmentTable() {
         }
 
         const res = await axios.get(
-          `http://localhost:5000/api/appointments/patient/${id}`
+          `https://quickcare-3.onrender.com/api/appointments/patient/${id}`
         );
 
         console.log("Patient appointments:", res.data);

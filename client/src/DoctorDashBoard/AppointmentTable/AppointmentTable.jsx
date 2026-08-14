@@ -20,7 +20,7 @@ function AppointmentTable() {
  const fetchAppointments = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/appointments/doctor/${doctorId}`
+      `https://quickcare-3.onrender.com/api/appointments/doctor/${doctorId}`
     );
 
     if (Array.isArray(response.data)) {

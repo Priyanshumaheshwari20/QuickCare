@@ -47,7 +47,7 @@ function Header() {
     const getDoctor = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/doctors/${doctorId}`
+          `https://quickcare-3.onrender.com/api/doctors/${doctorId}`
         );
 
         setAvailability(
@@ -72,7 +72,7 @@ function Header() {
   const handleAvailability = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/doctors/availability/${doctorId}`
+        `https://quickcare-3.onrender.com/api/doctors/availability/${doctorId}`
       );
 
       setAvailability(

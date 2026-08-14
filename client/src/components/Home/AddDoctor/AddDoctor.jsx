@@ -28,7 +28,7 @@ function DoctorSignup() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/doctors/signup",
+        "https://quickcare-3.onrender.com/api/doctors/signup",
         formData
       );
 

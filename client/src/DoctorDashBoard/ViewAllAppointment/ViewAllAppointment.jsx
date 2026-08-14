@@ -43,7 +43,7 @@ return;
 }
 
 const res=await axios.get(
-`http://localhost:5000/api/appointments/doctor/${doctorId}`
+`https://quickcare-3.onrender.com/api/appointments/doctor/${doctorId}`
 );
 
 const data=Array.isArray(res.data)
@@ -70,7 +70,7 @@ const handleStatusChange=async(id,status)=>{
 try{
 
 await axios.patch(
-`http://localhost:5000/api/appointments/status/${id}`,
+`https://quickcare-3.onrender.com/api/appointments/status/${id}`,
 {status}
 );
 
@@ -344,7 +344,7 @@ const deleteAppointment=async(id)=>{
 try{
 
 await axios.delete(
-`http://localhost:5000/api/appointments/permanent/${id}`
+`https://quickcare-3.onrender.com/api/appointments/permanent/${id}`
 );
 
 fetchAppointments();

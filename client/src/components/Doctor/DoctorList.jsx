@@ -72,8 +72,8 @@ function DoctorList() {
     const getDoctors = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/doctors"
-        );
+  "https://quickcare-3.onrender.com/api/doctors"
+);
 
         setFetchDoctorsItems(response.data.doctors);
       } catch (error) {

@@ -37,7 +37,7 @@ function MedicalHistory() {
     try{
 
       const res = await axios.get(
-        `http://localhost:5000/api/medical-history/${patientId}`
+        `https://quickcare-3.onrender.com/api/medical-history/${patientId}`
       );
 
       setPatient(res.data.patient);
@@ -299,7 +299,7 @@ function MedicalHistory() {
             <h3>Attached Medical Report</h3>
 
             <a
-              href={`http://localhost:5000/${prescription.pdf}`}
+              href={`https://quickcare-3.onrender.com/${prescription.pdf}`}
               target="_blank"
               rel="noreferrer"
               className="mh-pdf-btn"

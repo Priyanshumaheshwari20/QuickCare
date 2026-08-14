@@ -17,7 +17,7 @@ function DocumentsTab({ appointmentId }) {
         try {
 
             const res = await axios.get(
-                `http://localhost:5000/api/documents/${appointmentId}`
+                `https://quickcare-3.onrender.com/api/documents/${appointmentId}`
             );
 
             setDocuments(res.data.documents);
@@ -86,7 +86,7 @@ function DocumentsTab({ appointmentId }) {
 
             await axios.post(
 
-                "http://localhost:5000/api/documents/upload",
+                "https://quickcare-3.onrender.com/api/documents/upload",
 
                 formData,
 
@@ -158,7 +158,7 @@ function DocumentsTab({ appointmentId }) {
                                 <div className="document-actions">
 
                                     <a
-                                        href={`http://localhost:5000/uploads/${doc.fileName}`}
+                                        href={`https://quickcare-3.onrender.com/uploads/${doc.fileName}`}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -166,7 +166,7 @@ function DocumentsTab({ appointmentId }) {
                                     </a>
 
                                     <a
-                                        href={`http://localhost:5000/uploads/${doc.fileName}`}
+                                        href={`https://quickcare-3.onrender.com/uploads/${doc.fileName}`}
                                         download
                                     >
                                         Download

@@ -84,7 +84,7 @@ const [symptoms, setSymptoms] = useState([]);
   const getAppointment = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/appointments/${appointmentId}`
+        `https://quickcare-3.onrender.com/api/appointments/${appointmentId}`
       );
 
       setAppointment(res.data.appointment);
@@ -158,7 +158,7 @@ const handleUploadPDF = async () => {
     );
 
     const response = await axios.post(
-      "http://localhost:5000/api/documents/upload",
+      "https://quickcare-3.onrender.com/api/documents/upload",
       formData,
       {
         headers: {
@@ -207,9 +207,9 @@ appointment.doctorId._id || appointment.doctorId,
 
             };
 
-          const response = await axios.post(  "http://localhost:5000/api/prescriptions",  data); 
+          const response = await axios.post(  "https://quickcare-3.onrender.com/api/prescriptions",  data); 
           await axios.put(
-  `http://localhost:5000/api/appointments/status/${appointment._id}`,
+  `https://quickcare-3.onrender.com/api/appointments/status/${appointment._id}`,
   {
     status: "Completed",
   }

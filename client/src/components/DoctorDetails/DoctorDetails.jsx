@@ -68,7 +68,7 @@ function DoctorDetails() {
     const getDoctorDetails = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/doctors"
+          "https://quickcare-3.onrender.com/api/doctors"
         );
 
         const selectedDoctor = response.data.doctors.find(
@@ -173,7 +173,7 @@ function DoctorDetails() {
       console.log("BOOKING DATA:", bookingData);
 
       const response = await axios.post(
-        "http://localhost:5000/api/appointments",
+        "https://quickcare-3.onrender.com/api/appointments",
         bookingData
       );
 

@@ -18,7 +18,7 @@ try{
 const id= localStorage.getItem("patientId");
 
 const res=await axios.get(
-`http://localhost:5000/api/prescriptions/patient/${id}`
+`https://quickcare-3.onrender.com/api/prescriptions/patient/${id}`
 );
 
 setPrescriptions(res.data.prescriptions || []);
@@ -46,7 +46,7 @@ const deletePrescription = async (id) => {
   try {
 
     const res = await axios.delete(
-      `http://localhost:5000/api/prescriptions/${id}`
+      `https://quickcare-3.onrender.com/api/prescriptions/${id}`
     );
 
     if (res.data.success) {
@@ -270,7 +270,7 @@ Medicines
   {
     item.pdf && (
       <a
-        href={`http://localhost:5000/${item.pdf}`}
+        href={`https://quickcare-3.onrender.com/${item.pdf}`}
         target="_blank"
         rel="noreferrer"
         download

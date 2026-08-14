@@ -26,7 +26,7 @@ function DoctorLogin({ changeRole }) {
     try {
 
       const response = await axios.post(
-        "http://localhost:5000/api/doctors/login",
+        "https://quickcare-3.onrender.com/api/doctors/login",
         formData
       );
 

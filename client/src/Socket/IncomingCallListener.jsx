@@ -70,7 +70,7 @@ receiveTone.current.currentTime=0;
 
 
 await axios.put(
-`http://localhost:5000/api/appointments/status/${appointmentId}`,
+`https://quickcare-3.onrender.com/api/appointments/status/${appointmentId}`,
 {
 status:"In Progress"
 }

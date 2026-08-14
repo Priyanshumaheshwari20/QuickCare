@@ -17,7 +17,7 @@ function MyProfile() {
   const fetchProfile = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/doctors/${doctorId}`
+        `https://quickcare-3.onrender.com/api/doctors/${doctorId}`
       );
 
       setDoctor(res.data.doctor);
@@ -41,7 +41,7 @@ function MyProfile() {
   const handleSave = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/doctors/${doctorId}`,
+        `https://quickcare-3.onrender.com/api/doctors/${doctorId}`,
         doctor
       );
 

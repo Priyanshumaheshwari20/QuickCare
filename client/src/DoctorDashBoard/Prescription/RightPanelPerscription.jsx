@@ -21,7 +21,7 @@ function RightPanel({
     try{
 
       await axios.put(
-        `http://localhost:5000/api/appointments/status/${appointment._id}`,
+        `https://quickcare-3.onrender.com/api/appointments/status/${appointment._id}`,
         {
           status:"Waiting"
         }

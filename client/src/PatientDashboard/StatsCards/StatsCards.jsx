@@ -26,7 +26,7 @@ const navigate = useNavigate()
         const patientId = localStorage.getItem("patientId");
 
         const res = await axios.get(
-          `http://localhost:5000/api/appointments/patient/${patientId}`
+          `https://quickcare-3.onrender.com/api/appointments/patient/${patientId}`
         );
 
         const appointments = res.data;

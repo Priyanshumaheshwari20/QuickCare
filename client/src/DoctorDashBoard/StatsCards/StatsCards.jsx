@@ -28,7 +28,7 @@ function StatsCards() {
 
         // Get all doctor appointments
         const response = await axios.get(
-          `http://localhost:5000/api/appointments/doctor/${doctorId}`
+          `https://quickcare-3.onrender.com/api/appointments/doctor/${doctorId}`
         );
 
         console.log("Stats appointments:", response.data);

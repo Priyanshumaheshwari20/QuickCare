@@ -22,7 +22,7 @@ function ProfileCard() {
   const fetchPatient = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/patients/${patientId}`
+        `https://quickcare-3.onrender.com/api/patients/${patientId}`
       );
 
       setPatient(res.data.patient);
@@ -42,7 +42,7 @@ function ProfileCard() {
   const handleSave = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/patients/${patientId}`,
+        `https://quickcare-3.onrender.com/api/patients/${patientId}`,
         patient
       );
 
